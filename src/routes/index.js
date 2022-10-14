@@ -7,7 +7,7 @@ const publicationRoutes = require('./publicationRoutes.js')
 const router = Router()
 
 // LOAD EACH ROUTES IN A ROUTE
-router.get('/serverOk', (req, res) => {
+router.get('/', (req, res) => {
   res.status(200).json([])
 })
 router.use('/products', productRouter)
