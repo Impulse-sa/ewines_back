@@ -28,6 +28,7 @@ module.exports = (sequelize) => {
     },
     img: {
       type: DataTypes.TEXT,
+      allowNull: false,
       defaultValue: null
     },
     cellar: {

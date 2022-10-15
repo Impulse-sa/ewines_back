@@ -120,8 +120,8 @@ const orderPublicationsAtoZ = async () => {
     const publications = await getPublicationsDb()
 
     return publications.sort((a, b) => {
-      if (a.title.toLowerCase() < b.title.toLowerCase()) return 1
-      if (a.title.toLowerCase() > b.title.toLowerCase()) return -1
+      if (a.title.toLowerCase() > b.title.toLowerCase()) return 1
+      if (a.title.toLowerCase() < b.title.toLowerCase()) return -1
       return 0
     })
   } catch (error) {
@@ -134,8 +134,8 @@ const orderPublicationsZtoA = async () => {
     const publications = await getPublicationsDb()
 
     return publications.sort((a, b) => {
-      if (a.title.toLowerCase() > b.title.toLowerCase()) return 1
-      if (a.title.toLowerCase() < b.title.toLowerCase()) return -1
+      if (a.title.toLowerCase() < b.title.toLowerCase()) return 1
+      if (a.title.toLowerCase() > b.title.toLowerCase()) return -1
       return 0
     })
   } catch (error) {
