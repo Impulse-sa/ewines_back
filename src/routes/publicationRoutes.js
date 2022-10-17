@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
   try {
     if (name) {
       const publications = await getPublicationsByName(name)
-      if (!publications.length) return res.status(200).json('No hay publicaciones de productos con ese nombre!')
+      if (!publications.length) return res.status(200).json('No hay publicaciones para mostrar!')
 
       return res.status(200).json(publications)
     }

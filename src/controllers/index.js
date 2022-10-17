@@ -153,7 +153,18 @@ const getPublicationsByName = async (name) => {
         where: {
           name: {
             [Op.iLike]: `%${name}%`
-          },
+          }
+        }
+      },
+      where: {
+        isBanned: false
+      }
+    })
+
+    const dbResultsType = await Publication.findAll({
+      include: {
+        model: Product,
+        where: {
           type: {
             [Op.iLike]: `%${name}%`
           }
@@ -164,7 +175,7 @@ const getPublicationsByName = async (name) => {
       }
     })
 
-    dbResults.forEach(r => {
+    dbResults.concat(dbResultsType).forEach(r => {
       results.push({
         id: r.id,
         title: r.title,
