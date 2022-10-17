@@ -153,6 +153,9 @@ const getPublicationsByName = async (name) => {
         where: {
           name: {
             [Op.iLike]: `%${name}%`
+          },
+          type: {
+            [Op.iLike]: `%${name}%`
           }
         }
       },
