@@ -83,11 +83,11 @@ router.get('/email/:email', async (req, res) => {
       }
     })
 
-    if (!findEmail) {
-      return res.status(200).json(false)
+    if (findEmail) {
+      return res.status(404).json('El email ya existe!')
     }
 
-    res.status(200).json(true)
+    res.status(200).json('El email esta disponible!')
   } catch (error) {
     res.status(400).json(error.message)
   }
@@ -101,11 +101,11 @@ router.get('/username/:username', async (req, res) => {
       { where: { username } }
     )
 
-    if (!findUsername) {
-      return res.status(200).json(false)
+    if (findUsername) {
+      return res.status(404).json('El username ya existe. Pruebe con otro!')
     }
 
-    res.status(200).json(true)
+    res.status(200).json('El username esta disponible!')
   } catch (error) {
     res.status(400).json(error.message)
   }

@@ -60,11 +60,11 @@ module.exports = (sequelize) => {
       isBanned: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
-      },
-      isVerified: {
+      }
+      /*  isVerified: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
-      }
+      } */
     },
     {
       timestamps: true,

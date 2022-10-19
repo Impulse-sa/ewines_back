@@ -1,4 +1,4 @@
-const { Publication, Product } = require('../db.js')
+const { Publication, Product, User } = require('../db.js')
 const { Op } = require('sequelize')
 
 const getPublicationsDb = async () => {
@@ -6,13 +6,62 @@ const getPublicationsDb = async () => {
 
   try {
     const dbResults = await Publication.findAll({
-      include: Product,
+      include: [{
+        model: Product
+      }, {
+        model: User
+      }],
       where: {
         isBanned: false
       }
     })
 
-    dbResults.forEach(r => {
+    dbResults.forEach(async r => {
+      results.push({
+        id: r.id,
+        title: r.title,
+        price: r.price,
+        count: r.count,
+        image: r.image,
+        description: r.description,
+        isBanned: r.isBanned,
+        name: r.product.name,
+        type: r.product.type,
+        varietal: r.product.varietal,
+        cellar: r.product.cellar,
+        img: r.product.img,
+        origin: r.product.origin,
+        userId: r.userId,
+        email: r.user.email,
+        username: r.user.username
+      })
+    })
+
+    return results
+  } catch (error) {
+    throw new Error('Error tratando de obtener todas las publicaciones!')
+  }
+}
+
+const getPublicationsOfUser = async (id) => {
+  const results = []
+
+  try {
+    const dbResults = await Publication.findAll({
+      include: [{
+        model: Product
+      }, {
+        model: User,
+        where: {
+          id
+        }
+      }],
+      where: {
+        isBanned: false
+      }
+    })
+
+    dbResults.forEach(async r => {
       results.push({
         id: r.id,
         title: r.title,
@@ -27,16 +76,17 @@ const getPublicationsDb = async () => {
         img: r.product.img,
         origin: r.product.origin,
         userId: r.userId,
-        username: r.username,
-        email: r.email
+        email: r.user.email,
+        username: r.user.username
       })
     })
 
     return results
   } catch (error) {
-    throw new Error('Error tratando de obtener todas las publicaciones!')
+    throw new Error(`Error tratando de obtener todas las publicaciones del usuario con el id: ${id}!`)
   }
 }
+
 const createPublication = async (userId, productId, title, price, count, image, description) => {
   try {
     const newPublication = await Publication.create({ title, price, count, image, description, productId, userId })
@@ -49,7 +99,11 @@ const createPublication = async (userId, productId, title, price, count, image, 
 const getOnePublication = async (id) => {
   try {
     const pb = await Publication.findByPk(id, {
-      include: Product
+      include: [{
+        model: Product
+      }, {
+        model: User
+      }]
     })
 
     if (!pb) return null
@@ -65,7 +119,10 @@ const getOnePublication = async (id) => {
       varietal: pb.product.varietal,
       cellar: pb.product.cellar,
       img: pb.product.img,
-      origin: pb.product.origin
+      origin: pb.product.origin,
+      userId: pb.userId,
+      email: pb.user.email,
+      username: pb.user.username
     }
     return result
   } catch (error) {
@@ -151,42 +208,48 @@ const getPublicationsByName = async (name) => {
 
   try {
     const dbResults = await Publication.findAll({
-      include: {
+      include: [{
         model: Product,
         where: {
           name: {
             [Op.iLike]: `%${name}%`
           }
         }
-      },
+      }, {
+        model: User
+      }],
       where: {
         isBanned: false
       }
     })
 
     const dbResultsType = await Publication.findAll({
-      include: {
+      include: [{
         model: Product,
         where: {
           type: {
             [Op.iLike]: `%${name}%`
           }
         }
-      },
+      }, {
+        model: User
+      }],
       where: {
         isBanned: false
       }
     })
 
     const dbResultsOrigin = await Publication.findAll({
-      include: {
+      include: [{
         model: Product,
         where: {
           origin: {
             [Op.iLike]: `%${name}%`
           }
         }
-      },
+      }, {
+        model: User
+      }],
       where: {
         isBanned: false
       }
@@ -205,7 +268,10 @@ const getPublicationsByName = async (name) => {
         varietal: r.product.varietal,
         cellar: r.product.cellar,
         img: r.product.img,
-        origin: r.product.origin
+        origin: r.product.origin,
+        userId: r.userId,
+        email: r.user.email,
+        username: r.user.username
       })
     })
 
@@ -224,5 +290,6 @@ module.exports = {
   orderPublicationsLessPrice,
   orderPublicationsAtoZ,
   orderPublicationsZtoA,
-  getPublicationsByName
+  getPublicationsByName,
+  getPublicationsOfUser
 }

@@ -8,7 +8,8 @@ const {
   orderPublicationsLessPrice,
   orderPublicationsAtoZ,
   orderPublicationsZtoA,
-  getPublicationsByName
+  getPublicationsByName,
+  getPublicationsOfUser
 } = require('../controllers')
 
 const router = Router()
@@ -38,10 +39,23 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/user/:id', async (req, res) => {
+  const { id } = req.params
+
+  console.log(id)
+
+  try {
+    const publications = await getPublicationsOfUser(id)
+    if (!publications.length) return res.status(200).json('No hay publicaciones de ese usuario!')
+
+    return res.status(200).json(publications)
+  } catch (error) {
+    res.status(404).json(error.message)
+  }
+})
+
 router.get('/filter', async (req, res) => {
   const { type, varietal, origin, opt } = req.query
-
-  console.log(opt)
 
   try {
     let publications = await getPublicationsDb()
