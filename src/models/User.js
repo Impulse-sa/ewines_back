@@ -13,7 +13,8 @@ module.exports = (sequelize) => {
       },
       username: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       password: {
         type: DataTypes.STRING,
@@ -34,7 +35,7 @@ module.exports = (sequelize) => {
       },
       region: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       phoneNumber: {
         type: DataTypes.STRING,
@@ -57,6 +58,10 @@ module.exports = (sequelize) => {
         defaultValue: false
       },
       isBanned: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      isVerified: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
       }
