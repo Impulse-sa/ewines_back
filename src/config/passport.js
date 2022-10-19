@@ -20,7 +20,7 @@ module.exports = function (passport) {
           }
         })
           .then((user) => {
-            if (!user) return done(null, false, { message: 'User not exist!' })
+            if (!user) return done(null, false, { message: 'Usuario no existe!' })
 
             // Match password
             bcrypt.compare(password, user.password, (err, result) => {
@@ -29,7 +29,7 @@ module.exports = function (passport) {
               if (result) {
                 return done(null, user)
               } else {
-                return done(null, false, { message: 'Password incorrect' })
+                return done(null, false, { message: 'Password incorrecto' })
               }
             })
           })
@@ -81,7 +81,7 @@ module.exports = function (passport) {
         done(null, user)
       })
       .catch(() => {
-        done(new Error(`User with the id ${id} does not exist`))
+        done(new Error(`Usuario con el id ${id} no existe!`))
       })
   })
 }

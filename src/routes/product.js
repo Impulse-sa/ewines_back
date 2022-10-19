@@ -6,7 +6,7 @@ server.get('/', async (req, res) => {
   try {
     const productsFromDb = await productController.getAllProducts()
 
-    if (!productsFromDb.length) return res.status(404).json('No hay productos guardados en la Base de Datos!')
+    if (!productsFromDb.length) return res.status(200).json('No hay productos guardados en la Base de Datos!')
 
     return res.status(200).json(productsFromDb)
   } catch (error) {
@@ -20,7 +20,7 @@ server.get('/:id', async (req, res) => {
   try {
     const productById = await productController.getProductById(id)
 
-    if (!productById) return res.status(404).json(`Producto con el ID: ${id} no encontrado!`)
+    if (!productById) return res.status(200).json(`Producto con el ID: ${id} no encontrado!`)
 
     return res.status(200).json(productById)
   } catch (error) {

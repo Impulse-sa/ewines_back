@@ -5,27 +5,25 @@ const { User } = require('../db')
 
 const userController = require('../controllers/users')
 
-/* const { v4: uuid4 } = require('uuid')
+/* const { v4: uuid4 } = require('uuid') */
 
-const bcrypt = require('bcryptjs')
+const passport = require('passport')
 
-const passport = require('passport') */
-
-const nodemailer = require('nodemailer')
-const fs = require('fs')
+/* const nodemailer = require('nodemailer') */
+/* const fs = require('fs')
 const { promisify } = require('util')
-const readFile = promisify(fs.readFile)
+const readFile = promisify(fs.readFile) */
 
-const transporter = nodemailer.createTransport({
+/* const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 587, // port for secure SMTP
   auth: {
     user: 'e.winemarketplace@gmail.com',
     pass: 'yrzjdsfbehvmxtvt'
   }
-})
+}) */
 
-router.get('/login', async (req, res) => {
+/* router.get('/login', async (req, res) => {
   const { email, password } = req.body
 
   try {
@@ -39,6 +37,78 @@ router.get('/login', async (req, res) => {
   } catch (error) {
     res.status(400).json(error.message)
   }
+}) */
+
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) throw err
+    if (!user) return res.status(200).json('Usuario no existe!')
+    req.logIn(user, (err) => {
+      if (err) throw err
+      return res.status(200).json(true)
+    })
+  })(req, res, next)
+})
+
+router.get('/logout', async (req, res, next) => {
+  /*  await req.session.destroy(function (err) {
+    if (err) return next(err);
+  }); */
+  await req.logOut(function (err) {
+    if (err) return next(err)
+  })
+  res.clearCookie('e-wine')
+  res.send(false)
+
+  /* req.logout(function (err) {
+    if (err) return next(err);
+    res.send(false);
+  }); */
+})
+
+router.get('/user', (req, res) => {
+  console.log(req.user)
+  if (req.user) return res.send(req.user)
+  // store the entire user that has been authenticated
+  else res.send(false)
+})
+
+router.get('/email/:email', async (req, res) => {
+  const { email } = req.params
+
+  try {
+    const findEmail = await User.findOne({
+      where: {
+        email
+      }
+    })
+
+    if (!findEmail) {
+      return res.status(200).json(false)
+    }
+
+    res.status(200).json(true)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
+})
+
+router.get('/username/:username', async (req, res) => {
+  const { username } = req.params
+
+  try {
+    const findUsername = await User.findOne(
+      { where: { username } }
+    )
+
+    if (!findUsername) {
+      return res.status(200).json(false)
+    }
+
+    res.status(200).json(true)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
 })
 
 router.get('/:id', async (req, res) => {
@@ -48,7 +118,7 @@ router.get('/:id', async (req, res) => {
     const userById = await userController.getUserById(id)
 
     if (!userById) {
-      return res.status(404).json(`Usuario con ID: ${id} no encontrado!`)
+      return res.status(200).json(`Usuario con ID: ${id} no encontrado!`)
     }
     res.status(200).json(userById)
   } catch (error) {
@@ -138,12 +208,11 @@ router.post('/', async (req, res) => {
       region
     )
 
+    /*
     const mailOptions = {
       from: 'e.winemarketplace@hotmail.com',
       to: email,
       subject: 'Creaste tu cuenta en E-Wines',
-      /* html: `<h1>Gracias por registrarte en nuestra app!</h1>
-      <a href="http://e-wine-ashen.vercel.app/">http://e-wine-ashen.vercel.app/</a>`, */
       html: await readFile('./message.html', 'utf-8'),
       attachments: [
         {
@@ -160,7 +229,7 @@ router.post('/', async (req, res) => {
         console.log('Email sent: ' + info.response)
       }
     })
-
+ */
     res.status(201).json(userCreated)
   } catch (error) {
     res.status(400).json(error.message)
@@ -181,9 +250,13 @@ router.put('/:id/image-upload', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   const { id } = req.params
-  const { banned, sommelier } = req.query
+  const { banned, sommelier, verified } = req.query
 
   try {
+    if (verified) {
+      const result = await userController.setVerified(id, banned)
+      return res.status(200).json(result)
+    }
     if (banned) {
       const result = await userController.setBanned(id, banned)
       return res.status(200).json(result)

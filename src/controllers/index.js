@@ -25,7 +25,10 @@ const getPublicationsDb = async () => {
         varietal: r.product.varietal,
         cellar: r.product.cellar,
         img: r.product.img,
-        origin: r.product.origin
+        origin: r.product.origin,
+        userId: r.userId,
+        username: r.username,
+        email: r.email
       })
     })
 
@@ -34,9 +37,9 @@ const getPublicationsDb = async () => {
     throw new Error('Error tratando de obtener todas las publicaciones!')
   }
 }
-const createPublication = async (productId, title, price, count, image, description) => {
+const createPublication = async (userId, productId, title, price, count, image, description) => {
   try {
-    const newPublication = await Publication.create({ title, price, count, image, description, productId })
+    const newPublication = await Publication.create({ title, price, count, image, description, productId, userId })
 
     return newPublication
   } catch (error) {

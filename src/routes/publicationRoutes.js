@@ -98,7 +98,7 @@ router.get('/:id', async (req, res) => {
 
     if (!pb) {
       return res
-        .status(404)
+        .status(200)
         .json(`Publicacion con el ID: ${id} no encontrada!`)
     }
 
@@ -133,7 +133,7 @@ router.get('/order/:opt', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  const { productId, title, price, count, image, description } = req.body
+  const { userId, productId, title, price, count, image, description } = req.body
 
   if (!title) return res.status(400).json('Falta la propiedad titulo!')
   if (!price) return res.status(400).json('Falta la propiedad precio!')
@@ -143,6 +143,7 @@ router.post('/', async (req, res) => {
 
   try {
     const newPublication = await createPublication(
+      userId,
       productId,
       title,
       price,
