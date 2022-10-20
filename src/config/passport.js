@@ -72,13 +72,13 @@ module.exports = function (passport) {
 
   // Create a Cookie!
   passport.serializeUser(function (user, done) {
-    done(null, user.id)
+    return done(null, user.id)
   })
 
   passport.deserializeUser(function (id, done) {
     User.findByPk(id)
       .then((user) => {
-        done(null, user)
+        return done(null, user)
       })
       .catch(() => {
         done(new Error(`Usuario con el id ${id} no existe!`))
