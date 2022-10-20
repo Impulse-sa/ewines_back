@@ -17,8 +17,8 @@ server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
 server.use(bodyParser.json({ limit: '50mb' }))
 server.use(morgan('dev'))
 server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin) // update to match the domain you will make the request from
-  res.header('Access-Control-Allow-Credentials', true)
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000') // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Credentials', 'true')
   res.header(
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept'
@@ -30,16 +30,13 @@ server.use((req, res, next) => {
 // Express Session
 server.use(
   session({
-    name: 'e-wine',
     secret: 'secretcode',
     resave: true,
     saveUninitialized: true,
     cookie: {
-      secure: true,
-      maxAge: 24 * 60 * 60 * 1000,
-      sameSite: 'none'
-    },
-    proxy: true
+      sameSite: 'strict',
+      maxAge: 24 * 60 * 60 * 1000
+    }
   })
 )
 
