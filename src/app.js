@@ -34,11 +34,11 @@ server.use(
     name: 'e-wine',
     secret: 'secretcode',
     resave: true,
-    saveUninitialized: true
-    /* cookie: {
-      sameSite: 'strict',
+    saveUninitialized: true,
+    cookie: {
+      sameSite: 'none',
       maxAge: 24 * 60 * 60 * 1000
-    } */
+    }
   })
 )
 
