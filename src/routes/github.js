@@ -9,8 +9,6 @@ router.get(
   '/github/callback',
   passport.authenticate('github'),
   function (req, res) {
-    res.redirect('http://localhost:3000/dashboard')
-
     const token = jwt.sign({
       userId: req.user.id,
       email: req.user.email,
