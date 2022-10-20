@@ -32,8 +32,9 @@ server.use(
   session({
     name: 'e-wine',
     secret: 'secretcode',
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
+    proxy: true,
     cookie: {
       httpOnly: false,
       sameSite: 'none',
@@ -44,6 +45,7 @@ server.use(
 )
 
 server.use(cookieParser('secretcode'))
+server.enable('trust proxy')
 
 server.use(passport.initialize())
 server.use(passport.session())
