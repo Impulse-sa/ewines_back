@@ -32,13 +32,13 @@ server.use((req, res, next) => {
 server.use(
   session({
     secret: 'secretcode',
-    resave: true,
-    saveUninitialized: true
-    /* cookie: {
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
       sameSite: 'none',
-      secure: true,
+      secure: false,
       maxAge: 24 * 60 * 60 * 1000
-    } */
+    }
   })
 )
 
