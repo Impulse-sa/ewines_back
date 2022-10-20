@@ -32,10 +32,11 @@ server.use(
   session({
     name: 'e-wine',
     secret: 'secretcode',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     cookie: {
-      sameSite: 'strict',
+      sameSite: 'none',
+      secure: false,
       maxAge: 24 * 60 * 60 * 1000
     }
   })
