@@ -35,8 +35,8 @@ server.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      sameSite: 'none',
-      secure: false,
+      sameSite: 'strict',
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000
     }
   })
