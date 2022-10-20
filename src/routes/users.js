@@ -28,12 +28,10 @@ router.post('/login', async (req, res) => {
 
   try {
     const userEmail = await User.findOne({ where: { email } })
+    if (!userEmail) throw new Error('Email no encontrado!')
 
-    if (!userEmail) return res.status(404).json('Email no encontrado!')
-    console.log(userEmail.password)
     const passwordMatch = await bcrypt.compare(password, userEmail.password)
-    console.log(passwordMatch)
-    if (!passwordMatch) return res.status(404).json('Password es incorrecto')
+    if (!passwordMatch) throw new Error('Password es incorrecto')
 
     const userById = await userController.getUserById(userEmail.id)
     const token = jwt.sign({
@@ -160,7 +158,7 @@ router.post('/', async (req, res) => {
 
     if (emailExist) {
       return res
-        .status(404)
+        .status(400)
         .json('Existe un usuario con esa direccion de email. Prueba con una nueva!')
     }
 
@@ -172,7 +170,7 @@ router.post('/', async (req, res) => {
 
     if (usernameExist) {
       return res
-        .status(404)
+        .status(400)
         .json('Existe un usuario con ese username. Pruebe con una nuevo!')
     }
 
