@@ -12,7 +12,8 @@ router.get('/getAccessToken', async (req, res) => {
   await fetch('https://github.com/login/oauth/access_token' + params, {
     method: 'POST',
     headers: {
-      Accept: 'application/json'
+      Accept: 'application/json',
+      'Access-Control-Allow-Origin': '*'
     }
   }).then(response => {
     return response.json()
