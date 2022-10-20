@@ -1,5 +1,5 @@
 const { User } = require('../db')
-/* const bcrypt = require('bcryptjs') */
+const bcrypt = require('bcryptjs')
 
 const { v4: uuid4 } = require('uuid')
 
@@ -13,7 +13,7 @@ module.exports = function (passport) {
       {
         clientID: GITHUB_CLIENT_ID,
         clientSecret: GITHUB_CLIENT_SECRET,
-        callbackURL: 'http://localhost:3001/auth/github/callback'
+        callbackURL: 'https://e-winespf.herokuapp.com/auth/github/callback'
       },
       async function (accessToken, refreshToken, profile, cb) {
         const userExist = await User.findOne({
@@ -27,10 +27,11 @@ module.exports = function (passport) {
         } else {
           const userCreated = await User.create({
             id: uuid4(),
-            username: profile.displayName,
+            username: profile.username,
             email: profile.profileUrl,
-            password: 'password',
-            region: ''
+            password: await bcrypt.hash('password', 10),
+            region: 'null',
+            image: profile.photos[0].value
           })
           cb(null, userCreated)
         }
