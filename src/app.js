@@ -31,7 +31,6 @@ server.use((req, res, next) => {
 // Express Session
 server.use(
   session({
-    name: 'e-wine',
     secret: 'secretcode',
     resave: true,
     saveUninitialized: true
