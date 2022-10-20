@@ -57,10 +57,10 @@ router.get('/email/:email', async (req, res) => {
     })
 
     if (findEmail) {
-      return res.status(404).json('El email ya existe!')
+      return res.status(404).json(true)
     }
 
-    res.status(200).json('El email esta disponible!')
+    res.status(200).json(false)
   } catch (error) {
     res.status(400).json(error.message)
   }
