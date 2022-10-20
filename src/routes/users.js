@@ -45,7 +45,7 @@ router.post('/login', (req, res, next) => {
     if (!user) return res.status(200).json('Usuario no existe!')
     req.logIn(user, (err) => {
       if (err) throw err
-      return res.status(200).json(true)
+      return res.status(200).json(user)
     })
   })(req, res, next)
 })
