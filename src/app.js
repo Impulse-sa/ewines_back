@@ -27,9 +27,6 @@ server.use((req, res, next) => {
   next()
 })
 
-server.use(cookieParser('secretcode'))
-server.enable('trust proxy')
-
 // Express Session
 server.use(
   session({
@@ -46,8 +43,7 @@ server.use(
   })
 )
 
-/* server.use(cookieParser('secretcode'))
-server.enable('trust proxy') */
+server.use(cookieParser('secretcode'))
 
 server.use(passport.initialize())
 server.use(passport.session())
