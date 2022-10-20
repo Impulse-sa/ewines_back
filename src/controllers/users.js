@@ -216,6 +216,19 @@ const setVerified = async (id, verified) => {
   }
 }
 
+const deleteUserById = async (id) => {
+  try {
+    const userDeleted = await User.destroy({
+      where: {
+        id
+      }
+    })
+    return userDeleted
+  } catch (error) {
+    throw new Error('Error al eliminar el usuario!')
+  }
+}
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -225,5 +238,6 @@ module.exports = {
   setBanned,
   setSommelier,
   setImage,
-  setVerified
+  setVerified,
+  deleteUserById
 }

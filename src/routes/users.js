@@ -29,11 +29,11 @@ router.post('/login', async (req, res) => {
   try {
     const userEmail = await User.findOne({ where: { email } })
 
-    if (!userEmail) return res.status(200).json('Email no encontrado!')
+    if (!userEmail) return res.status(404).json('Email no encontrado!')
     console.log(userEmail.password)
     const passwordMatch = await bcrypt.compare(password, userEmail.password)
     console.log(passwordMatch)
-    if (!passwordMatch) return res.status(200).json('Password es incorrecto')
+    if (!passwordMatch) return res.status(404).json('Password es incorrecto')
 
     const userById = await userController.getUserById(userEmail.id)
     const token = jwt.sign({
@@ -146,10 +146,10 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const { username, email, password, region } = req.body
 
-  if (!username) return res.status(200).json('Falta nombre de usuario!')
-  if (!email) return res.status(200).json('Falta email de usuario!')
-  if (!password) return res.status(200).json('Falta password!')
-  if (!region) return res.status(200).json('Falta parametro region!')
+  if (!username) return res.status(404).json('Falta nombre de usuario!')
+  if (!email) return res.status(404).json('Falta email de usuario!')
+  if (!password) return res.status(404).json('Falta password!')
+  if (!region) return res.status(404).json('Falta parametro region!')
 
   try {
     const emailExist = await User.findOne({
@@ -160,7 +160,7 @@ router.post('/', async (req, res) => {
 
     if (emailExist) {
       return res
-        .status(200)
+        .status(404)
         .json('Existe un usuario con esa direccion de email. Prueba con una nueva!')
     }
 
@@ -172,7 +172,7 @@ router.post('/', async (req, res) => {
 
     if (usernameExist) {
       return res
-        .status(200)
+        .status(404)
         .json('Existe un usuario con ese username. Pruebe con una nuevo!')
     }
 
@@ -240,6 +240,17 @@ router.put('/:id', async (req, res) => {
       const result = await userController.setSommelier(id, sommelier)
       return res.status(200).json(result)
     }
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const result = await userController.deleteUserById(id)
+    res.status(200).json(result)
   } catch (error) {
     res.status(400).json(error.message)
   }
