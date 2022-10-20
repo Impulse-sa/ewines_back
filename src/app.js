@@ -31,11 +31,12 @@ server.use((req, res, next) => {
 // Express Session
 server.use(
   session({
+    name: 'e-wine',
     secret: 'secretcode',
     resave: false,
     saveUninitialized: true,
     cookie: {
-      sameSite: 'strict',
+      sameSite: 'none',
       secure: true,
       maxAge: 24 * 60 * 60 * 1000
     }
