@@ -154,8 +154,8 @@ router.post('/', async (req, res) => {
   if (!count) return res.status(400).json('Falta la propiedad stock!')
   if (!image) return res.status(400).json('Falta la imagen de la publicacion!')
   if (!description) { return res.status(400).json('Falta la propiedad descripcion!') }
-  if (!userId) return res.status(400).json('Falta la propiedad userId!')
-  if (!productId) return res.status(400).json('Falta la propiedad productId!')
+  if (!userId) return res.status(400).json('Falta la propiedad id del usuario!')
+  if (!productId) return res.status(400).json('Falta la propiedad id del producto!')
 
   try {
     const newPublication = await createPublication(
