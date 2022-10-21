@@ -5,36 +5,37 @@ const { Favorite } = require('../db')
 const { v4: uuidv4 } = require('uuid')
 
 router.get('/delete', async (req, res) => {
-    const { userId, publicationId } = req.body
-  
-    try {
-      await Favorite.update({ isBanned: true }, {
-        where: {
-          userId,
-          publicationId
-        }
+  const { userId, publicationId } = req.body
+
+  try {
+    await Favorite.update({ isBanned: true }, {
+      where: {
+        userId,
+        publicationId
+      }
+    })
+
+    const results = []
+    const favorites = await Favorite.findAll({
+      where: {
+        userId,
+        isBanned: false
+      }
+    })
+
+    favorites.forEach(r => {
+      results.push({
+        id: r.id,
+        publicationId: r.publicationId,
+        userId: r.userId
       })
-  
-      const results = []
-      const favorites = await Favorite.findAll({
-        where: {
-          userId,
-          isBanned: false
-        }
-      })
-  
-      favorites.forEach(r => {
-        results.push({
-          id: r.id,
-          publicationId: r.publicationId,
-          userId: r.userId
-        })
-      })
-      res.status(200).json(results)
-    } catch (error) {
-      res.status(400).json(error.message)
-    }
+    })
+    res.status(200).json(results)
+  } catch (error) {
+    res.status(400).json(error.message)
   }
+}
+)
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params
@@ -110,9 +111,5 @@ router.post('/', async (req, res) => {
     res.status(400).json(error.message)
   }
 })
-
-
-
-)
 
 module.exports = router
