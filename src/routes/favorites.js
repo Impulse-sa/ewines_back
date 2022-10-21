@@ -11,7 +11,8 @@ router.get('/:id', async (req, res) => {
   try {
     const favorites = await Favorite.findAll({
       where: {
-        userId: id
+        userId: id,
+        isBanned: false
       }
     })
 
@@ -34,29 +35,44 @@ router.post('/', async (req, res) => {
   const { userId, publicationId } = req.body
 
   try {
-    const favoriteCreated = await Favorite.create({
-      id: uuidv4(),
-      userId,
-      publicationId
+    const findFavorite = await Favorite.findOne({
+      where: {
+        userId,
+        publicationId
+      }
     })
 
-    if (favoriteCreated) {
-      const results = []
-      const favorites = await Favorite.findAll({
+    if (findFavorite) {
+      await Favorite.update({ isBanned: false }, {
         where: {
-          userId
+          userId,
+          publicationId
         }
       })
-
-      favorites.forEach(r => {
-        results.push({
-          id: r.id,
-          publicationId: r.publicationId,
-          userId: r.userId
-        })
+    } else {
+      await Favorite.create({
+        id: uuidv4(),
+        userId,
+        publicationId
       })
-      res.status(200).json(favorites)
     }
+
+    const results = []
+    const favorites = await Favorite.findAll({
+      where: {
+        userId,
+        isBanned: false
+      }
+    })
+
+    favorites.forEach(r => {
+      results.push({
+        id: r.id,
+        publicationId: r.publicationId,
+        userId: r.userId
+      })
+    })
+    res.status(200).json(favorites)
   } catch (error) {
     /* res.status(400).json(`Error creando publicacion favorita para el usuario con el id: ${userId}`) */
     res.status(400).json(error.message)
@@ -75,28 +91,29 @@ router.get('/', async (req, res) => {
     })
 
     if (findFavorite) {
-      const favoriteDeleted = await Favorite.destroy({
+      await Favorite.update({ isBanned: true }, {
         where: {
-          id: findFavorite.id
+          userId,
+          publicationId
         }
       })
-      if (favoriteDeleted) {
-        const results = []
-        const favorites = await Favorite.findAll({
-          where: {
-            userId
-          }
-        })
 
-        favorites.forEach(r => {
-          results.push({
-            id: r.id,
-            publicationId: r.publicationId,
-            userId: r.userId
-          })
+      const results = []
+      const favorites = await Favorite.findAll({
+        where: {
+          userId,
+          isBanned: false
+        }
+      })
+
+      favorites.forEach(r => {
+        results.push({
+          id: r.id,
+          publicationId: r.publicationId,
+          userId: r.userId
         })
-        res.status(200).json(favorites)
-      }
+      })
+      res.status(200).json(favorites)
     }
   } catch (error) {
     throw new Error('Error al eliminar el usuario!')
