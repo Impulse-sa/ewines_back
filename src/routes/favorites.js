@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.delete('/', async (req, res) => {
+router.get('/', async (req, res) => {
   const { userId, publicationId } = req.body
 
   try {
