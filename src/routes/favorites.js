@@ -42,10 +42,18 @@ router.post('/', async (req, res) => {
 
     if (favoriteCreated) {
       const results = []
-      const favorites = await Favorite.findAll()
+      const favorites = await Favorite.findAll({
+        where: {
+          userId
+        }
+      })
 
       favorites.forEach(r => {
-        results.push(r.id)
+        results.push({
+          id: r.id,
+          publicationId: r.publicationId,
+          userId: r.userId
+        })
       })
       res.status(200).json(favorites)
     }
@@ -55,23 +63,40 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params
+router.delete('/', async (req, res) => {
+  const { userId, publicationId } = req.body
 
   try {
-    const favoriteDeleted = await Favorite.destroy({
+    const findFavorite = await Favorite.findOne({
       where: {
-        id
+        userId,
+        publicationId
       }
     })
-    if (favoriteDeleted) {
-      const results = []
-      const favorites = await Favorite.findAll()
 
-      favorites.forEach(r => {
-        results.push(r.id)
+    if (findFavorite) {
+      const favoriteDeleted = await Favorite.destroy({
+        where: {
+          id: findFavorite.id
+        }
       })
-      res.status(200).json(favorites)
+      if (favoriteDeleted) {
+        const results = []
+        const favorites = await Favorite.findAll({
+          where: {
+            userId
+          }
+        })
+
+        favorites.forEach(r => {
+          results.push({
+            id: r.id,
+            publicationId: r.publicationId,
+            userId: r.userId
+          })
+        })
+        res.status(200).json(favorites)
+      }
     }
   } catch (error) {
     throw new Error('Error al eliminar el usuario!')
