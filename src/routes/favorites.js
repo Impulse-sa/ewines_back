@@ -40,7 +40,15 @@ router.post('/', async (req, res) => {
       publicationId
     })
 
-    res.status(201).json(favoriteCreated)
+    if (favoriteCreated) {
+      const results = []
+      const favorites = await Favorite.findAll()
+
+      favorites.forEach(r => {
+        results.push(r.id)
+      })
+      res.status(200).json(favorites)
+    }
   } catch (error) {
     /* res.status(400).json(`Error creando publicacion favorita para el usuario con el id: ${userId}`) */
     res.status(400).json(error.message)
