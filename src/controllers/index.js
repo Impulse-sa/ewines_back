@@ -39,8 +39,7 @@ const getPublicationsDb = async () => {
 
     return results
   } catch (error) {
-    throw new Error(error)
-    /* throw new Error('Error tratando de obtener todas las publicaciones!') */
+    throw new Error('Error tratando de obtener todas las publicaciones!')
   }
 }
 
