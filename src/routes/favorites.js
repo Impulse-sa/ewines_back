@@ -26,16 +26,30 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  const { userId, productId } = req.body
+  const { userId, publicationId } = req.body
 
   try {
     const favoriteCreated = await Favorite.create({
       id: uuidv4(),
       userId,
-      productId
+      publicationId
     })
 
-    res.status(201).json(favoriteCreated)
+    if (favoriteCreated) {
+      const results = []
+
+      const favorites = await Favorite.findAll({
+        where: {
+          userId
+        }
+      })
+
+      favorites.forEach(r => {
+        results.push(r.id)
+      })
+
+      res.status(201).json(results)
+    }
   } catch (error) {
     res.status(400).json(`Error creando publicacion favorita para el usuario con el id: ${userId}`)
   }
