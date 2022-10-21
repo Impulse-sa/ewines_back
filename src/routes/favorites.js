@@ -16,12 +16,16 @@ router.get('/:id', async (req, res) => {
     })
 
     favorites.forEach(r => {
-      results.push(r.id)
+      results.push({
+        id: r.id,
+        publicationId: r.publicationId
+      })
     })
 
     res.status(200).json(results)
   } catch (error) {
-    res.status(404).json(`Error tratando de obtener los favoritos del usuario con el id: ${id}`)
+    /* res.status(400).json(`Error tratando de obtener los favoritos del usuario con el id: ${id}`) */
+    res.status(400).json(error.message)
   }
 })
 
@@ -35,23 +39,10 @@ router.post('/', async (req, res) => {
       publicationId
     })
 
-    if (favoriteCreated) {
-      const results = []
-
-      const favorites = await Favorite.findAll({
-        where: {
-          userId
-        }
-      })
-
-      favorites.forEach(r => {
-        results.push(r.id)
-      })
-
-      res.status(201).json(results)
-    }
+    res.status(201).json(favoriteCreated)
   } catch (error) {
-    res.status(400).json(`Error creando publicacion favorita para el usuario con el id: ${userId}`)
+    /* res.status(400).json(`Error creando publicacion favorita para el usuario con el id: ${userId}`) */
+    res.status(400).json(error.message)
   }
 })
 
@@ -64,7 +55,15 @@ router.delete('/:id', async (req, res) => {
         id
       }
     })
-    return favoriteDeleted
+    if (favoriteDeleted) {
+      const results = []
+      const favorites = await Favorite.findAll()
+
+      favorites.forEach(r => {
+        results.push(r.id)
+      })
+      res.status(200).json(favorites)
+    }
   } catch (error) {
     throw new Error('Error al eliminar el usuario!')
   }
