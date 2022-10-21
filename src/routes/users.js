@@ -217,7 +217,7 @@ router.put('/:id/image-upload', async (req, res) => {
     const result = await userController.setImage(id, url)
     return res.status(200).json(result)
   } catch (error) {
-    res.status(400).json('Error tratando de subir la imagen de usuario!')
+    res.status(400).json('Error tratando de subir la imagen de usuario')
   }
 })
 
