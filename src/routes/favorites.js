@@ -4,8 +4,9 @@ const router = Router()
 const { Favorite } = require('../db')
 const { v4: uuidv4 } = require('uuid')
 
-router.get('/delete', async (req, res) => {
-  const { userId, publicationId } = req.body
+router.get('/delete/:userId', async (req, res) => {
+  const { userId } = req.params
+  const { publicationId } = req.query
 
   try {
     await Favorite.update({ isBanned: true }, {
