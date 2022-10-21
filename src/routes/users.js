@@ -75,10 +75,10 @@ router.get('/username/:username', async (req, res) => {
     )
 
     if (findUsername) {
-      return res.status(404).json('El username ya existe. Pruebe con otro!')
+      return res.status(404).json(true)
     }
 
-    res.status(200).json('El username esta disponible!')
+    res.status(200).json(false)
   } catch (error) {
     res.status(400).json(error.message)
   }

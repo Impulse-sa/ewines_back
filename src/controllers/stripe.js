@@ -24,7 +24,7 @@ const createBuy = async ({ idStripe, totalAmount, carrito, userId }) => {
       idFront: idStripe,
       totalAmount
     })
-    carrito?.map(async (p) => {
+    carrito?.forEach(async (p) => {
       const newBuyItem = await createBuyItem(p.count, p.id)
       newBuy.addBuyItem(newBuyItem)
     })
