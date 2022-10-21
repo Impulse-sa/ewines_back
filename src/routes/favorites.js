@@ -18,7 +18,8 @@ router.get('/:id', async (req, res) => {
     favorites.forEach(r => {
       results.push({
         id: r.id,
-        publicationId: r.publicationId
+        publicationId: r.publicationId,
+        userId: r.userId
       })
     })
 
