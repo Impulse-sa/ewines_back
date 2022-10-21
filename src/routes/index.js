@@ -7,6 +7,7 @@ const publicationRoutes = require('./publicationRoutes.js')
 const favoritesRouter = require('./favorites')
 const stripeRoutes = require('./stripeRoutes')
 const buyRoutes = require('./buyRoutes')
+
 const router = Router()
 
 // LOAD EACH ROUTES IN A ROUTE
