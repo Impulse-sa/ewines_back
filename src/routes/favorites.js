@@ -79,7 +79,7 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.get('/', async (req, res) => {
+router.get('/delete', async (req, res) => {
   const { userId, publicationId } = req.body
 
   try {
@@ -107,7 +107,7 @@ router.get('/', async (req, res) => {
     })
     res.status(200).json(results)
   } catch (error) {
-    throw new Error('Error al eliminar el usuario!')
+    res.status(400).json(error.message)
   }
 }
 
