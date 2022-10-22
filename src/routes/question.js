@@ -39,7 +39,7 @@ router.get('/:publicationId', async (req, res) => {
   }
 })
 
-router.get('/answer/:id', async (req, res) => {
+router.post('/answer/:id', async (req, res) => {
   const { id } = req.params
   const { answer, publicationId } = req.body
 
