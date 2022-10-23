@@ -25,6 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "mercadopago": "^1.5.14",
     "morgan": "^1.10.0",
+    "node-fetch": "^3.2.10",
     "nodemailer": "^6.8.0",
     "passport": "^0.6.0",
     "passport-github": "^1.1.0",
