@@ -13,6 +13,6 @@ server.post('/', (req, res, next) => {
     } catch (error) {
       throw console.error(error)
     }
-  } else next()
+  } else { next() }
 })
 module.exports = server
