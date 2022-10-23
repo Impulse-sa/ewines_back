@@ -4,8 +4,8 @@ const Stripe = require('stripe')
 // const Publication = require('../models/Publication')
 // const User = require('../models/User')
 
-const { STRIPE_KEY } = process.env
-const stripe = new Stripe(STRIPE_KEY)
+/* const { STRIPE_KEY } = process.env */
+const stripe = new Stripe('sk_test_51LulbPIqj2ZSlvPhpV2QZCrTWzkzSK0QG2kZLrWHuL4gUTklxTGDoP2CIv6BbEfPPgUEANVtmmdBZZyfbY4ClW9p00o6CENx3K')
 
 const createBuy = async ({ idStripe, totalAmount, carrito, userId }) => {
   try {
