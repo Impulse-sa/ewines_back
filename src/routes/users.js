@@ -9,19 +9,19 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 /* const auth = require('../config/auth') */
 
-/* const nodemailer = require('nodemailer') */
-/* const fs = require('fs')
+const nodemailer = require('nodemailer')
+const fs = require('fs')
 const { promisify } = require('util')
-const readFile = promisify(fs.readFile) */
+const readFile = promisify(fs.readFile)
 
-/* const transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 587, // port for secure SMTP
   auth: {
     user: 'e.winemarketplace@gmail.com',
     pass: 'yrzjdsfbehvmxtvt'
   }
-}) */
+})
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body
@@ -181,7 +181,6 @@ router.post('/', async (req, res) => {
       region
     )
 
-    /*
     const mailOptions = {
       from: 'e.winemarketplace@hotmail.com',
       to: email,
@@ -189,8 +188,8 @@ router.post('/', async (req, res) => {
       html: await readFile('./message.html', 'utf-8'),
       attachments: [
         {
-          filename: 'logo.jpeg',
-          path: './logo.jpeg'
+          filename: 'e-wine.png',
+          path: './e-wine.png'
         }
       ]
     }
@@ -202,7 +201,7 @@ router.post('/', async (req, res) => {
         console.log('Email sent: ' + info.response)
       }
     })
- */
+
     res.status(201).json(userCreated)
   } catch (error) {
     res.status(400).json(error.message)
