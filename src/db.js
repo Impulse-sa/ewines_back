@@ -72,10 +72,11 @@ Publication.belongsTo(Product)
 Publication.hasMany(Favorite)
 Favorite.belongsTo(Publication)
 
-BuyItem.hasOne(Publication)
-Publication.belongsToMany(BuyItem, { through: 'publicationBuyItem' })
-BuyItem.belongsTo(Buy)
+Publication.hasMany(BuyItem)
+BuyItem.belongsTo(Publication)
+
 Buy.hasMany(BuyItem)
+BuyItem.belongsTo(Buy)
 
 Buy.belongsTo(User)
 User.hasMany(Buy)
