@@ -26,7 +26,7 @@ router.get('/user/:id', async (req, res) => {
     const BuyById = await getBuysByUser(id)
     res.status(200).json(BuyById)
   } catch (error) {
-    res.status(400).json(error.message)
+    res.status(400).json(error)
   }
 })
 router.get('/publication/:id', async (req, res) => {
