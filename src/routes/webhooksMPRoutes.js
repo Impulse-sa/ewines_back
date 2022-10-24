@@ -2,7 +2,7 @@ const server = require('express').Router()
 const { createBuy } = require('../controllers/webhooksMP')
 
 server.post('/', (req, res, next) => {
-  const id = req.query.data_id
+  const id = req.query.data.id
   const payment = req.query.type
   if (id !== undefined && payment === 'payment') {
     try {
