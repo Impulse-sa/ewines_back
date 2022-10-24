@@ -22,7 +22,7 @@ server.post('/', (req, res) => {
 
     items: req.body.map(item => { return { ...item, currency_id: 'ARS' } }),
     back_urls: {
-      success: 'https://e-wine-ashen.vercel.app',
+      success: 'http://localhost:3000/userPurchased',
       failure: 'https://e-wine-ashen.vercel.app',
       pending: 'https://e-wine-ashen.vercel.app'
     },
