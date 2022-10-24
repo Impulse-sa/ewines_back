@@ -25,7 +25,7 @@ module.exports = server
 
 const PagarProducto = async (req, res) => {
   console.log(req.body)
-  console.log(req.query)
+  console.log(req.query['data.id'])
 
   /*   try {
     await createBuy(req.body.data.id)
