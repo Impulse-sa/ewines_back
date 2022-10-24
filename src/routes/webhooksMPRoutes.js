@@ -1,5 +1,5 @@
 /* const server = require('express').Router() */
-/* const { createBuy } = require('../controllers/webhooksMP') */
+const { createBuy } = require('../controllers/webhooksMP')
 /*
 server.post('/', (req, res, next) => {
   console.log(req.body)
@@ -27,13 +27,13 @@ const PagarProducto = async (req, res) => {
   console.log(req.body)
   console.log(req.query['data.id'])
 
-  /*   try {
-    await createBuy(req.body.data.id)
-
+  try {
+    await createBuy(req.query['data.id'])
+    res.status(200).send('OK')
   } catch (error) {
     console.log(error.message)
-  } */
-  res.status(200).send('OK')
+    res.status(400).send('ERROR')
+  }
 }
 
 module.exports = { PagarProducto }
