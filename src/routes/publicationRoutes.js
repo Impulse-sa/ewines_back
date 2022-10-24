@@ -10,7 +10,8 @@ const {
   orderPublicationsZtoA,
   getPublicationsByName,
   getPublicationsOfUser,
-  getAllPublicationsDb
+  getAllPublicationsDb,
+  updatePublicationStock
 } = require('../controllers')
 
 const router = Router()
@@ -53,6 +54,17 @@ router.get('/all', async (req, res) => {
     return res.status(200).json(publications)
   } catch (error) {
     res.status(404).json(error.message)
+  }
+})
+
+router.put('/stock/:id', async (req, res) => {
+  const { id } = req.params
+  const { newStock } = req.query
+  try {
+    const publicationUpdated = await updatePublicationStock(newStock, id)
+    return res.status(200).json(publicationUpdated)
+  } catch (error) {
+    res.status(400).json(error.message)
   }
 })
 

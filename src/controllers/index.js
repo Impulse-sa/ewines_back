@@ -82,6 +82,23 @@ const getAllPublicationsDb = async () => {
   }
 }
 
+const updatePublicationStock = async (newStock, publicationId) => {
+  try {
+    const publicationUpdated = await Publication.update(
+      {
+        count: newStock
+      },
+      {
+        where: { publicationId }
+
+      }
+    )
+    return publicationUpdated
+  } catch (error) {
+    throw new Error('Error al intentar actualizar el stock')
+  }
+}
+
 const getPublicationsOfUser = async (id) => {
   const results = []
 
@@ -331,5 +348,6 @@ module.exports = {
   orderPublicationsZtoA,
   getPublicationsByName,
   getPublicationsOfUser,
-  getAllPublicationsDb
+  getAllPublicationsDb,
+  updatePublicationStock
 }
