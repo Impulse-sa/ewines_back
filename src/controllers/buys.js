@@ -29,7 +29,8 @@ const getBuyById = async (id) => {
       currency: dbResult.dataValues.currency,
       paymentMethod: dbResult.dataValues.paymentMethod,
       totalAmount: dbResult.dataValues.totalAmount,
-      userId: dbResult.dataValues.userId
+      userId: dbResult.dataValues.userId,
+      createAt: dbResult.dataValues.createdAt
     }
 
     return resultParsed
