@@ -182,7 +182,7 @@ router.post('/', async (req, res) => {
     )
 
     const mailOptions = {
-      from: 'e.winemarketplace@hotmail.com',
+      from: 'e.winemarketplace@gmail.com',
       to: email,
       subject: 'Creaste tu cuenta en E-Wines',
       html: await readFile('./message.html', 'utf-8'),
