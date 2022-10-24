@@ -1,8 +1,10 @@
-const server = require('express').Router()
-const { createBuy } = require('../controllers/webhooksMP')
-
+/* const server = require('express').Router()
+/* const { createBuy } = require('../controllers/webhooksMP') */
+/*
 server.post('/', (req, res, next) => {
-  const { body, query } = req
+  console.log(req.body)
+  res.status(200).send('OK')
+ const { body, query } = req
   const id = body.data.id
   const payment = query.type
   console.log(body)
@@ -19,3 +21,11 @@ server.post('/', (req, res, next) => {
   } else next()
 })
 module.exports = server
+ */
+
+const PagarProducto = async (req, res) => {
+  console.log(req.body)
+  res.status(200).send('OK')
+}
+
+module.exports = { PagarProducto }
