@@ -44,7 +44,8 @@ const getAllUsers = async () => {
         isBanned: r.isBanned,
         isAdmin: r.isAdmin,
         isSommelier: r.isSommelier,
-        balance: r.balance
+        balance: r.balance,
+        createdAt: r.createdAt
       })
     })
     console.log(results)
