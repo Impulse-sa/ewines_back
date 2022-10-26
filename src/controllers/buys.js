@@ -12,7 +12,7 @@ const getAllBuy = async () => {
         paymentMethod: b.dataValues.paymentMethod,
         totalAmount: b.dataValues.totalAmount,
         userId: b.dataValues.userId,
-        createdAt: b.createAt
+        createdAt: b.createdAt
       })
     })
     console.log('resultados parseados', resultParsed)
