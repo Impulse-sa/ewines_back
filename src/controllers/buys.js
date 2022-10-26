@@ -11,7 +11,8 @@ const getAllBuy = async () => {
         currency: b.dataValues.currency,
         paymentMethod: b.dataValues.paymentMethod,
         totalAmount: b.dataValues.totalAmount,
-        userId: b.dataValues.userId
+        userId: b.dataValues.userId,
+        createdAt: b.createAt
       })
     })
     console.log('resultados parseados', resultParsed)
