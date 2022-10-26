@@ -58,9 +58,10 @@ router.get('/provinces', async (req, res) => {
     }
 
     for (let x = 0; x < usersFromDb.length; x++) {
-      const region = usersFromDb[x].region
+      let region
 
-      if (region !== null) {
+      if (usersFromDb[x].region !== 'null' && usersFromDb[x].region !== null) {
+        region = usersFromDb[x].region
         provinces[region] = provinces[region] + 1
       }
     }
