@@ -48,7 +48,6 @@ const getAllUsers = async () => {
         createdAt: r.createdAt
       })
     })
-    console.log(results)
     return results
   } catch (error) {
     throw new Error('Error tratando de obtener los usuarios de la DB!')

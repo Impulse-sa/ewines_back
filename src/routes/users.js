@@ -23,6 +23,54 @@ const transporter = nodemailer.createTransport({
   }
 })
 
+router.get('/provinces', async (req, res) => {
+  try {
+    const usersFromDb = await userController.getAllUsers()
+
+    if (!usersFromDb.length) {
+      return res.status(200).json('No hay usuarios guardados en la Base de Datos!')
+    }
+
+    const provinces = {
+      'Buenos Aires': 0,
+      Catamarca: 0,
+      Chaco: 0,
+      Chubut: 0,
+      Córdoba: 0,
+      Corrientes: 0,
+      'Entre Ríos': 0,
+      Formosa: 0,
+      Jujuy: 0,
+      'La Pampa': 0,
+      'La Rioja': 0,
+      Mendoza: 0,
+      Misiones: 0,
+      Neuquén: 0,
+      'Río Negro': 0,
+      Salta: 0,
+      'San Juan': 0,
+      'San Luis': 0,
+      'Santa Cruz': 0,
+      'Santa Fe': 0,
+      'Santiago del Estero': 0,
+      'Tierra del Fuego': 0,
+      Tucumán: 0
+    }
+
+    for (let x = 0; x < usersFromDb.length; x++) {
+      const region = usersFromDb[x].region
+
+      console.log(provinces[region])
+
+      provinces[region] = provinces[region] + 1
+    }
+
+    return res.status(200).json(provinces)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
+})
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body
 
