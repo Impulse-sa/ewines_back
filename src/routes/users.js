@@ -60,9 +60,9 @@ router.get('/provinces', async (req, res) => {
     for (let x = 0; x < usersFromDb.length; x++) {
       const region = usersFromDb[x].region
 
-      console.log(provinces[region])
-
-      provinces[region] = provinces[region] + 1
+      if (region !== null) {
+        provinces[region] = provinces[region] + 1
+      }
     }
 
     return res.status(200).json(provinces)
