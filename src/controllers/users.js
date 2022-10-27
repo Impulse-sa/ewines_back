@@ -214,7 +214,11 @@ const setPassword = async (id, password, password2) => {
         }
       }
     )
-    if (userUpdated) { return 'Se actualizo tu password correctamente!' }
+
+    if (userUpdated) {
+      const userById = await getUserById(id)
+      return userById
+    }
   } catch (error) {
     throw new Error('Error actualizando el password del usuario')
   }
