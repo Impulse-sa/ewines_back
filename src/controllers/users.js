@@ -194,6 +194,36 @@ const setImage = async (id, url) => {
   }
 }
 
+const setPassword = async (id, password, password2) => {
+  try {
+    const userFound = await User.findByPk(id)
+
+    console.log(userFound.password)
+    console.log(await bcrypt.hash(password, 10))
+
+    const passwordMatch = await bcrypt.compare(password, userFound.password)
+    if (!passwordMatch) return 'Password incorrecto'
+
+    const userUpdated = await User.update(
+      {
+        password: await bcrypt.hash(password2, 10)
+      },
+      {
+        where: {
+          id
+        }
+      }
+    )
+
+    if (userUpdated) {
+      const userById = await getUserById(id)
+      return userById
+    }
+  } catch (error) {
+    throw new Error('Error actualizando el password del usuario')
+  }
+}
+
 const setVerified = async (id, verified) => {
   try {
     const userUpdated = await User.update(
@@ -239,5 +269,6 @@ module.exports = {
   setSommelier,
   setImage,
   setVerified,
-  deleteUserById
+  deleteUserById,
+  setPassword
 }

@@ -286,6 +286,11 @@ router.put('/:id', async (req, res) => {
       const result = await userController.setSommelier(id, sommelier)
       return res.status(200).json(result)
     }
+
+    const { password, password2 } = req.body
+
+    const result = await userController.setPassword(id, password, password2)
+    return res.status(200).json(result)
   } catch (error) {
     res.status(400).json(error.message)
   }
