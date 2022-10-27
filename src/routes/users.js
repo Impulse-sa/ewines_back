@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 /* const auth = require('../config/auth') */
 
-const nodemailer = require('nodemailer')
+/* const nodemailer = require('nodemailer')
 const fs = require('fs')
 const { promisify } = require('util')
 const readFile = promisify(fs.readFile)
@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
     user: 'e.winemarketplace@gmail.com',
     pass: 'yrzjdsfbehvmxtvt'
   }
-})
+}) */
 
 router.get('/provinces', async (req, res) => {
   try {
@@ -229,7 +229,7 @@ router.post('/', async (req, res) => {
       password,
       region
     )
-
+    /*
     const mailOptions = {
       from: 'e.winemarketplace@gmail.com',
       to: email,
@@ -249,7 +249,7 @@ router.post('/', async (req, res) => {
       } else {
         console.log('Email sent: ' + info.response)
       }
-    })
+    }) */
 
     res.status(201).json(userCreated)
   } catch (error) {

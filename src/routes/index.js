@@ -13,6 +13,8 @@ const buyItemRoutes = require('./buyItemRoutes.js')
 const checkout = require('./MercadoPago')
 /* const webhooks = require('./webhooksMPRoutes') */
 const { PagarProducto } = require('./webhooksMPRoutes')
+const conversationsRoutes = require('./conversations')
+const messagesRoutes = require('./messages')
 const router = Router()
 
 // LOAD EACH ROUTES IN A ROUTE
@@ -31,5 +33,7 @@ router.use('/checkout', checkout)
 router.use('/buyItems', buyItemRoutes)
 router.use('/stripe', stripeRoutes)
 router.use('/buys', buyRoutes)
+router.use('/conversations', conversationsRoutes)
+router.use('/messages', messagesRoutes)
 
 module.exports = router
