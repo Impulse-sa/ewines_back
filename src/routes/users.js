@@ -61,7 +61,7 @@ router.post('/forgotPassword', async (req, res) => {
       html: `<div>
       <h1 style="color: white; text-align: center; text-transform: uppercase; background-color: #56070C; font-size: 20px;">Nuevo Password Provisorio!</h1>
       <h2 style="font-size: 16px; text-align: center;">Password</h2>
-      <h2 style="font-size: 16px; text-align: center;>${newPassword}</h2>
+      <h2 style="font-size: 16px; text-align: center;">${newPassword}</h2>
        <div style="text-align: center;">
         <img src="e-wine.png" alt="img" />   
        </div>
