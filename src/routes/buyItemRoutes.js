@@ -5,6 +5,8 @@ const { BuyItem, Publication, Product } = require('../db')
 
 router.get('/productsCount', async (req, res) => {
   try {
+    const products = {}
+
     const buys = await BuyItem.findAll({
       include: {
         model: Publication,
@@ -12,12 +14,11 @@ router.get('/productsCount', async (req, res) => {
       }
     })
 
-    buys.forEach(async (buy) => {
-      const product = await Product.findByPk(buy.publication.productId)
-      console.log(product.name)
-    })
+    for (let x = 0; x < buys?.length; x++) {
+      products[buys[x].publication.product.name] = products[buys[x].publication.product.name] + buys[x].countProduct
+    }
 
-    res.status(200).json(buys)
+    res.status(200).json(products)
   } catch (error) {
     res.status(400).json(error.message)
   }
