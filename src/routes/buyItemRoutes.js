@@ -16,7 +16,7 @@ router.get('/productsCount', async (req, res) => {
 
     for (let x = 0; x < buys?.length; x++) {
       const key = buys[x].publication.product.name
-      if (products.key !== undefined) {
+      if (typeof products.key !== 'undefined') {
         products[key] = products.key + buys[x].countProduct
       } else {
         products[key] = buys[x].countProduct
