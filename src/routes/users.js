@@ -1,6 +1,8 @@
 const { Router } = require('express')
 const router = Router()
 
+const { v4: uuidv4 } = require('uuid')
+
 const { User } = require('../db')
 
 const userController = require('../controllers/users')
@@ -9,10 +11,10 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 /* const auth = require('../config/auth') */
 
-/* const nodemailer = require('nodemailer')
-const fs = require('fs')
+const nodemailer = require('nodemailer')
+/* const fs = require('fs')
 const { promisify } = require('util')
-const readFile = promisify(fs.readFile)
+const readFile = promisify(fs.readFile) */
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -21,7 +23,71 @@ const transporter = nodemailer.createTransport({
     user: 'e.winemarketplace@gmail.com',
     pass: 'yrzjdsfbehvmxtvt'
   }
-}) */
+})
+
+router.get('/forgotPassword', async (req, res) => {
+  const { email } = req.body
+
+  try {
+    const emailExist = await User.findOne({
+      where: {
+        email
+      }
+    })
+
+    if (!emailExist) {
+      return res
+        .status(400)
+        .json('No existe un usuario con esa direccion de email!')
+    }
+
+    const newPassword = uuidv4()
+
+    const userUpdated = await User.update(
+      {
+        password: await bcrypt.hash(newPassword, 10)
+      },
+      {
+        where: {
+          email
+        }
+      }
+    )
+
+    const mailOptions = {
+      from: 'e.winemarketplace@gmail.com',
+      to: email,
+      subject: 'Creaste tu cuenta en E-Wines',
+      html: `<div>
+      <h1 style="color: white; text-align: center; text-transform: uppercase; background-color: #56070C; font-size: 20px;">Nuevo Password Provisorio!</h1>
+      <h2 style="font-size: 16px; text-align: center;">Password</h2>
+      <h2 style="font-size: 16px; text-align: center;>${newPassword}</h2>
+       <div style="text-align: center;">
+        <img src="e-wine.png" alt="img" />   
+       </div>
+        <a style="background-color: #56070C; padding: 4px 8px; color: white; border-radius: 5px; width: 150; text-decoration: none; text-align: center;" href="http://localhost:3000/home">Ir a E-Wines</a>
+    </div>`,
+      attachments: [
+        {
+          filename: 'e-wine.png',
+          path: './e-wine.png'
+        }
+      ]
+    }
+
+    await transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log('Email sent: ' + info.response)
+      }
+    })
+
+    res.status(201).json(userUpdated)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
+})
 
 router.get('/filter/:id', async (req, res) => {
   const { id } = req.params
