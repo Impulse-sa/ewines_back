@@ -53,7 +53,11 @@ router.get('/find/:firstUserId/:secondUserId', async (req, res) => {
         await newConversation.addUser(firstUserId)
         await newConversation.addUser(secondUserId)
       }
-      res.status(201).json(newConversation)
+      const conversation = await Conversation.findByPk(newConversation.id, {
+        include: User
+      })
+
+      res.status(200).json(conversation)
     } else {
       const conversation = await Conversation.findByPk(conversationId, {
         include: User

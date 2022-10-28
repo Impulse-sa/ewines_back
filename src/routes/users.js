@@ -23,6 +23,24 @@ const transporter = nodemailer.createTransport({
   }
 }) */
 
+router.get('/filter/:id', async (req, res) => {
+  const { id } = req.params
+
+  try {
+    let usersFromDb = await userController.getAllUsers()
+
+    if (!usersFromDb.length) {
+      return res.status(200).json('No hay usuarios guardados en la Base de Datos!')
+    }
+
+    usersFromDb = usersFromDb.filter(user => user.id !== id)
+
+    return res.status(200).json(usersFromDb)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
+})
+
 router.get('/provinces', async (req, res) => {
   try {
     const usersFromDb = await userController.getAllUsers()
