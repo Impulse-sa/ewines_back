@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-router.get('/forgotPassword', async (req, res) => {
+router.post('/forgotPassword', async (req, res) => {
   const { email } = req.body
 
   try {
