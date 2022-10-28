@@ -18,6 +18,54 @@ router.post('/', async (req, res) => {
   }
 })
 
+router.get('/find/:firstUserId/:secondUserId', async (req, res) => {
+  const { firstUserId, secondUserId } = req.params
+
+  try {
+    const results = []
+
+    const conversations = await Conversation.findAll({
+      include: User
+    })
+
+    conversations.forEach(conversation => {
+      console.log(conversation.users[1].id)
+      results.push({
+        conversationId: conversation.id,
+        users: [conversation.users[0].id, conversation.users[1].id]
+      })
+    })
+
+    let exist = false
+    let conversationId = ''
+
+    results.forEach(result => {
+      console.log(result)
+      if (result.users.includes(firstUserId) && result.users.includes(secondUserId)) {
+        exist = true
+        conversationId = result.conversationId
+      }
+    })
+
+    if (!exist) {
+      const newConversation = await Conversation.create()
+      if (newConversation) {
+        await newConversation.addUser(firstUserId)
+        await newConversation.addUser(secondUserId)
+      }
+      res.status(201).json(newConversation)
+    } else {
+      const conversation = await Conversation.findByPk(conversationId, {
+        include: User
+      })
+
+      res.status(200).json(conversation)
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+})
+
 router.get('/user/:id', async (req, res) => {
   const { id } = req.params
   const results = []
