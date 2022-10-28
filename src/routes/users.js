@@ -57,7 +57,7 @@ router.post('/forgotPassword', async (req, res) => {
     const mailOptions = {
       from: 'e.winemarketplace@gmail.com',
       to: email,
-      subject: 'Creaste tu cuenta en E-Wines',
+      subject: 'Password Provisorio',
       html: `<div>
       <h1 style="color: white; text-align: center; text-transform: uppercase; background-color: #56070C; font-size: 20px;">Nuevo Password Provisorio!</h1>
       <h2 style="font-size: 16px; text-align: center;">Password</h2>

@@ -1,6 +1,18 @@
 const { Router } = require('express')
 const { getAllBuyItemsOfBuy, getAllBuyItems } = require('../controllers/buyItems.js')
 const router = Router()
+const { BuyItem, Publication } = require('../db')
+
+router.get('/productsCount', async (req, res) => {
+  try {
+    const buys = await BuyItem.findAll({
+      include: Publication
+    })
+    res.status(200).json(buys)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
+})
 
 router.get('/', async (req, res) => {
   try {
