@@ -15,7 +15,7 @@ router.get('/productsCount', async (req, res) => {
     })
 
     for (let x = 0; x < buys?.length; x++) {
-      products[buys[x].publication.product.name] = products[buys[x].publication.product.name] + buys[x].countProduct
+      products[buys[x].publication.product.name] = buys[x].countProduct
     }
 
     res.status(200).json(products)
