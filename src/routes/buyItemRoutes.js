@@ -23,7 +23,7 @@ router.get('/productsCount', async (req, res) => {
       }
     }
 
-    res.status(200).json(buys)
+    res.status(200).json(products)
   } catch (error) {
     res.status(400).json(error.message)
   }
