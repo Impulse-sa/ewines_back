@@ -6,7 +6,10 @@ const { BuyItem, Publication, Product } = require('../db')
 router.get('/productsCount', async (req, res) => {
   try {
     const buys = await BuyItem.findAll({
-      include: Publication
+      include: {
+        model: Publication,
+        include: Product
+      }
     })
 
     buys.forEach(async (buy) => {
