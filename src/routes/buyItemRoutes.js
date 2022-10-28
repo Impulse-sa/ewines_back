@@ -1,13 +1,19 @@
 const { Router } = require('express')
 const { getAllBuyItemsOfBuy, getAllBuyItems } = require('../controllers/buyItems.js')
 const router = Router()
-const { BuyItem, Publication } = require('../db')
+const { BuyItem, Publication, Product } = require('../db')
 
 router.get('/productsCount', async (req, res) => {
   try {
     const buys = await BuyItem.findAll({
       include: Publication
     })
+
+    buys.forEach(async (buy) => {
+      const product = await Product.findByPk(buy.publication.productId)
+      console.log(product.name)
+    })
+
     res.status(200).json(buys)
   } catch (error) {
     res.status(400).json(error.message)
