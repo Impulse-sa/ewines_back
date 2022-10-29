@@ -95,19 +95,13 @@ router.get('/filter/:id', async (req, res) => {
   const { id } = req.params
 
   try {
-    const usersFromDb = await userController.getAllUsers({
-      where: {
-        id: {
-          [Op.not]: [id]
-        }
-      }
-    })
+    let usersFromDb = await userController.getAllUsers()
 
     if (!usersFromDb.length) {
       return res.status(200).json('No hay usuarios guardados en la Base de Datos!')
     }
 
-    // usersFromDb = usersFromDb.filter(user => user.id !== id)
+    usersFromDb = usersFromDb.filter(user => user.id !== id)
 
     return res.status(200).json(usersFromDb)
   } catch (error) {
