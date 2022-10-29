@@ -82,7 +82,7 @@ const getSalesByUser = async (id) => {
     console.log('BuyItems', buysId)
 
     const resultParsed = []
-    buyItems.forEach((item) => {
+    buyItems?.forEach((item) => {
       Buy.findByPk(item.dataValues.buyId).then(b => {
         resultParsed.push({
           buyId: b.dataValues.id,
