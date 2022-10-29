@@ -63,7 +63,7 @@ router.get('/user/sales/:id', async (req, res) => {
     })
     setTimeout(() => {
       res.status(200).json(resultParsed)
-    }, 1000)
+    }, 500)
   } catch (error) {
     res.status(400).json(error.message)
   }
