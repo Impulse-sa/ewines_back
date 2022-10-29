@@ -65,6 +65,7 @@ const getBuysByUser = async (userId) => {
 
 const getSalesByUser = async (id) => {
   try {
+    const buysId = []
     const buyItems = await BuyItem.findAll({
       include: {
         model: Publication,
@@ -74,7 +75,11 @@ const getSalesByUser = async (id) => {
       }
     })
 
-    console.log('BuyItems', buyItems)
+    buyItems.forEach(item => {
+      buysId.push(item.dataValues.buyId)
+    })
+
+    console.log('BuyItems', buysId)
 
     const resultParsed = []
     buyItems.forEach(async (item) => {
