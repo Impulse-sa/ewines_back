@@ -10,8 +10,8 @@ module.exports = (sequelize) => {
       primaryKey: true
     },
     status: {
-      type: DataTypes.INTEGER,
-      defaultValue: 1,
+      type: DataTypes.STRING,
+      defaultValue: 'PENDIENTE',
       allowNull: false
     }
   })
