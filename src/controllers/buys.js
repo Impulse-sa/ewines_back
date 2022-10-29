@@ -67,7 +67,12 @@ const getSalesByUser = async (id) => {
   /* const resultParsed = [] */
   try {
     const dbResult = await Buy.findAll({
-      include: BuyItem
+      include: {
+        model: BuyItem,
+        include: {
+          model: Publication
+        }
+      }
     })
     /*   dbResult?.forEach(b => {
       resultParsed.push({
