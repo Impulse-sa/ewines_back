@@ -70,7 +70,10 @@ const getSalesByUser = async (id) => {
       include: {
         model: BuyItem,
         include: {
-          model: Publication
+          model: Publication,
+          where: {
+            userId: id
+          }
         }
       }
     })
