@@ -49,24 +49,29 @@ router.get('/user/sales/:id', async (req, res) => {
       buysId.push(item.dataValues.buyId)
     })
 
-    const resultParsed = []
-    buyItems.forEach(async (item) => {
-      const b = await Buy.findByPk(item.dataValues.buyId)
-      resultParsed.push({
-        buyId: b.dataValues.id,
-        currency: b.dataValues.currency,
-        paymentMethod: b.dataValues.paymentMethod,
-        totalAmount: b.dataValues.totalAmount,
-        userId: b.dataValues.userId,
-        createdAt: b.dataValues.createdAt
-      })
-    })
-    console.log('Results', resultParsed)
+    const resultParsed = await getBuys()
+
     res.status(200).json(resultParsed)
   } catch (error) {
     res.status(400).json(error.message)
   }
 })
+
+const getBuys = async (buyItems) => {
+  const resultParsed = []
+  buyItems.forEach(async (item) => {
+    const b = await Buy.findByPk(item.dataValues.buyId)
+    resultParsed.push({
+      buyId: b.dataValues.id,
+      currency: b.dataValues.currency,
+      paymentMethod: b.dataValues.paymentMethod,
+      totalAmount: b.dataValues.totalAmount,
+      userId: b.dataValues.userId,
+      createdAt: b.dataValues.createdAt
+    })
+  })
+  return resultParsed
+}
 
 router.get('/publication/:id', async (req, res) => {
   const { id } = req.params
