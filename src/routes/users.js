@@ -16,8 +16,6 @@ const nodemailer = require('nodemailer')
 const { promisify } = require('util')
 const readFile = promisify(fs.readFile) */
 
-const { Op } = require('sequelize')
-
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 587, // port for secure SMTP

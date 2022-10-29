@@ -62,6 +62,29 @@ const getBuysByUser = async (userId) => {
     return new Error('Error al buscar todas las compras de un usuario')
   }
 }
+
+const getSalesByUser = async (id) => {
+  const resultParsed = []
+  try {
+    const dbResult = await Buy.findAll({
+      include: BuyItem
+    })
+    /*   dbResult?.forEach(b => {
+      resultParsed.push({
+        buyId: b.dataValues.id,
+        currency: b.dataValues.currency,
+        paymentMethod: b.dataValues.paymentMethod,
+        totalAmount: b.dataValues.totalAmount,
+        userId: b.dataValues.userId,
+        createdAt: b.dataValues.createdAt
+      })
+    }) */
+    return dbResult
+  } catch (error) {
+    return new Error('Error al buscar todas las compras de un usuario')
+  }
+}
+
 const getBuysByPublication = async (publicationId) => {
   const resultParsed = []
   try {
@@ -117,5 +140,6 @@ module.exports = {
   getBuyById,
   getBuysByUser,
   getBuysByPublication,
-  getBuysByProducts
+  getBuysByProducts,
+  getSalesByUser
 }
