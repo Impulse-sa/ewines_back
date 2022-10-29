@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const { getAllBuy, getBuyById, getBuysByUser, getBuysByPublication } = require('../controllers/buys.js')
 const router = Router()
-const { Buy, BuyItem, Publication } = require('../db')
+const { Buy, BuyItem, Publication, User } = require('../db')
 
 router.get('/', async (req, res) => {
   try {
@@ -51,14 +51,17 @@ router.get('/user/sales/:id', async (req, res) => {
 
     const resultParsed = []
     buyItems.forEach(async (item) => {
-      const b = await Buy.findByPk(item.dataValues.buyId)
+      const b = await Buy.findByPk(item.dataValues.buyId, {
+        include: User
+      })
       resultParsed.push({
         buyId: b.dataValues.id,
         currency: b.dataValues.currency,
         paymentMethod: b.dataValues.paymentMethod,
         totalAmount: b.dataValues.totalAmount,
         userId: b.dataValues.userId,
-        createdAt: b.dataValues.createdAt
+        createdAt: b.dataValues.createdAt,
+        username: b.dataValues.user.username
       })
     })
     setTimeout(() => {
