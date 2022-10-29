@@ -49,7 +49,7 @@ router.get('/user/sales/:id', async (req, res) => {
       buysId.push(item.dataValues.buyId)
     })
 
-    const resultParsed = await getBuys()
+    const resultParsed = await getBuys(buyItems)
 
     res.status(200).json(resultParsed)
   } catch (error) {
