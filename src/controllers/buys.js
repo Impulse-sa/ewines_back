@@ -75,19 +75,17 @@ const getSalesByUser = async (id) => {
       }
     })
 
-    if (buyItems.length) {
-      buyItems.forEach(async (item) => {
-        const b = await Buy.findByPk(item.buyId)
-        resultParsed.push({
-          buyId: b.id,
-          currency: b.currency,
-          paymentMethod: b.paymentMethod,
-          totalAmount: b.totalAmount,
-          userId: b.userId,
-          createdAt: b.createdAt
-        })
+    buyItems?.forEach(async (item) => {
+      const b = await Buy.findByPk(item.buyId)
+      resultParsed.push({
+        buyId: b.dataValues.id,
+        currency: b.dataValues.currency,
+        paymentMethod: b.dataValues.paymentMethod,
+        totalAmount: b.dataValues.totalAmount,
+        userId: b.dataValues.userId,
+        createdAt: b.dataValues.createdAt
       })
-    }
+    })
 
     /*  const dbResult = await Buy.findAll({
       include: {
