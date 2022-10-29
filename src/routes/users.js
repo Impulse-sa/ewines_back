@@ -16,6 +16,8 @@ const nodemailer = require('nodemailer')
 const { promisify } = require('util')
 const readFile = promisify(fs.readFile) */
 
+const { Op } = require('sequelize')
+
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 587, // port for secure SMTP
@@ -93,13 +95,19 @@ router.get('/filter/:id', async (req, res) => {
   const { id } = req.params
 
   try {
-    let usersFromDb = await userController.getAllUsers()
+    const usersFromDb = await userController.getAllUsers({
+      where: {
+        id: {
+          [Op.not]: id
+        }
+      }
+    })
 
     if (!usersFromDb.length) {
       return res.status(200).json('No hay usuarios guardados en la Base de Datos!')
     }
 
-    usersFromDb = usersFromDb.filter(user => user.id !== id)
+    // usersFromDb = usersFromDb.filter(user => user.id !== id)
 
     return res.status(200).json(usersFromDb)
   } catch (error) {
