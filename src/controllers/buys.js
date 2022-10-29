@@ -63,41 +63,6 @@ const getBuysByUser = async (userId) => {
   }
 }
 
-const getSalesByUser = async (id) => {
-  try {
-    const buysId = []
-    const buyItems = await BuyItem.findAll({
-      include: {
-        model: Publication,
-        where: {
-          userId: id
-        }
-      }
-    })
-
-    buyItems.forEach(item => {
-      buysId.push(item.dataValues.buyId)
-    })
-
-    const resultParsed = []
-    buyItems.forEach((item) => {
-      const b = Buy.findByPk(item.dataValues.buyId)
-      resultParsed.push({
-        buyId: b.dataValues.id,
-        currency: b.dataValues.currency,
-        paymentMethod: b.dataValues.paymentMethod,
-        totalAmount: b.dataValues.totalAmount,
-        userId: b.dataValues.userId,
-        createdAt: b.dataValues.createdAt
-      })
-    })
-    console.log('Results', resultParsed)
-    return resultParsed
-  } catch (error) {
-    return new Error('Error al buscar todas las ventas de un usuario')
-  }
-}
-
 const getBuysByPublication = async (publicationId) => {
   const resultParsed = []
   try {
@@ -153,6 +118,5 @@ module.exports = {
   getBuyById,
   getBuysByUser,
   getBuysByPublication,
-  getBuysByProducts,
-  getSalesByUser
+  getBuysByProducts
 }
