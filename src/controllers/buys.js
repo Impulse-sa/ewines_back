@@ -74,23 +74,22 @@ const getSalesByUser = async (id) => {
       }
     })
 
-    const getBuys = async (buyItems) => {
-      const resultParsed = []
-      buyItems.forEach(async (item) => {
-        const b = await Buy.findByPk(item.dataValues.buyId)
-        resultParsed.push({
-          buyId: b.dataValues.id,
-          currency: b.dataValues.currency,
-          paymentMethod: b.dataValues.paymentMethod,
-          totalAmount: b.dataValues.totalAmount,
-          userId: b.dataValues.userId,
-          createdAt: b.dataValues.createdAt
-        })
-      })
-      return resultParsed
-    }
+    console.log('BuyItems', buyItems)
 
-    return getBuys()
+    const resultParsed = []
+    buyItems.forEach(async (item) => {
+      const b = await Buy.findByPk(item.dataValues.buyId)
+      resultParsed.push({
+        buyId: b.dataValues.id,
+        currency: b.dataValues.currency,
+        paymentMethod: b.dataValues.paymentMethod,
+        totalAmount: b.dataValues.totalAmount,
+        userId: b.dataValues.userId,
+        createdAt: b.dataValues.createdAt
+      })
+    })
+    console.log('Results', resultParsed)
+    return resultParsed
   } catch (error) {
     return new Error('Error al buscar todas las ventas de un usuario')
   }
