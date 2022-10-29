@@ -85,7 +85,7 @@ const getSalesByUser = async (id) => {
         createdAt: b.dataValues.createdAt
       })
     })
-    console.log(resultParsed)
+    console.log('Results', resultParsed)
     return resultParsed
   } catch (error) {
     return new Error('Error al buscar todas las ventas de un usuario')
