@@ -64,7 +64,6 @@ const getBuysByUser = async (userId) => {
 }
 
 const getSalesByUser = async (id) => {
-  const resultParsed = []
   try {
     const buyItems = await BuyItem.findAll({
       include: {
@@ -74,7 +73,7 @@ const getSalesByUser = async (id) => {
         }
       }
     })
-
+    const resultParsed = []
     buyItems?.forEach(async (item) => {
       const b = await Buy.findByPk(item.dataValues.buyId)
       console.log(b)
