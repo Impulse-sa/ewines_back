@@ -82,15 +82,16 @@ const getSalesByUser = async (id) => {
     console.log('BuyItems', buysId)
 
     const resultParsed = []
-    buyItems.forEach(async (item) => {
-      const b = await Buy.findByPk(item.dataValues.buyId)
-      resultParsed.push({
-        buyId: b.dataValues.id,
-        currency: b.dataValues.currency,
-        paymentMethod: b.dataValues.paymentMethod,
-        totalAmount: b.dataValues.totalAmount,
-        userId: b.dataValues.userId,
-        createdAt: b.dataValues.createdAt
+    buyItems.forEach((item) => {
+      Buy.findByPk(item.dataValues.buyId).then(b => {
+        resultParsed.push({
+          buyId: b.dataValues.id,
+          currency: b.dataValues.currency,
+          paymentMethod: b.dataValues.paymentMethod,
+          totalAmount: b.dataValues.totalAmount,
+          userId: b.dataValues.userId,
+          createdAt: b.dataValues.createdAt
+        })
       })
     })
     console.log('Results', resultParsed)
