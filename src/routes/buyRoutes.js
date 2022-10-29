@@ -32,7 +32,7 @@ router.get('/user/:id', async (req, res) => {
   }
 })
 
-/* router.get('/user/sales/:id', async (req, res) => {
+router.get('/user/sales/:id', async (req, res) => {
   const { id } = req.params
 
   try {
@@ -77,7 +77,7 @@ router.get('/user/:id', async (req, res) => {
   } catch (error) {
     res.status(400).json(error.message)
   }
-}) */
+})
 
 router.get('/publication/:id', async (req, res) => {
   const { id } = req.params
