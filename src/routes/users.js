@@ -98,7 +98,7 @@ router.get('/filter/:id', async (req, res) => {
     const usersFromDb = await userController.getAllUsers({
       where: {
         id: {
-          [Op.not]: id
+          [Op.not]: [id]
         }
       }
     })
