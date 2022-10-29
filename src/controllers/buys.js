@@ -77,6 +77,7 @@ const getSalesByUser = async (id) => {
 
     buyItems?.forEach(async (item) => {
       const b = await Buy.findByPk(item.dataValues.buyId)
+      console.log(b)
       resultParsed.push({
         buyId: b.dataValues.id,
         currency: b.dataValues.currency,
