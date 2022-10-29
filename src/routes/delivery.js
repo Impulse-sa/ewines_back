@@ -18,9 +18,24 @@ router.post('/', async (req, res) => {
   }
 })
 
-/* router.put("/:id", async (req, res) => {
-    const {status} = req.body
+/* router.put('/:id', async (req, res) => {
+  const { id } = req.params
+  const { status } = req.body
 
+  try {
+    const deliveryUpdated = await Delivery.update(
+      {
+        status
+      },
+      {
+        where: {
+          id
+        }
+      }
+    )
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
 }) */
 
 module.exports = router
