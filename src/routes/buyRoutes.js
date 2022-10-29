@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { getAllBuy, getBuyById, getBuysByUser, getBuysByPublication } = require('../controllers/buys.js')
+const { getAllBuy, getBuyById, getBuysByUser, getBuysByPublication, getSalesByUser } = require('../controllers/buys.js')
 const router = Router()
 
 router.get('/', async (req, res) => {

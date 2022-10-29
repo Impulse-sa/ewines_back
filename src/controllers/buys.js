@@ -64,7 +64,7 @@ const getBuysByUser = async (userId) => {
 }
 
 const getSalesByUser = async (id) => {
-  const resultParsed = []
+  /* const resultParsed = [] */
   try {
     const dbResult = await Buy.findAll({
       include: BuyItem
