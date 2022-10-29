@@ -64,7 +64,7 @@ const getBuysByUser = async (userId) => {
 }
 
 const getSalesByUser = async (id) => {
-  /* const resultParsed = [] */
+  const resultParsed = []
   try {
     const dbResult = await Buy.findAll({
       include: {
@@ -77,7 +77,7 @@ const getSalesByUser = async (id) => {
         }
       }
     })
-    /*   dbResult?.forEach(b => {
+    dbResult?.forEach(b => {
       resultParsed.push({
         buyId: b.dataValues.id,
         currency: b.dataValues.currency,
@@ -86,7 +86,7 @@ const getSalesByUser = async (id) => {
         userId: b.dataValues.userId,
         createdAt: b.dataValues.createdAt
       })
-    }) */
+    })
     return dbResult
   } catch (error) {
     return new Error('Error al buscar todas las compras de un usuario')
