@@ -47,13 +47,13 @@ const getBuysByUser = async (userId) => {
         where: {
           userId
         },
+        order: ['createdAt', 'DESC'],
         include:
       [{
         model: Delivery
       }, {
         model: User
-      }],
-        order: ['createdAt', 'DESC']
+      }]
       }
     )
     dbResult?.forEach(b => {
