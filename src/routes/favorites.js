@@ -18,6 +18,7 @@ router.get('/delete/:userId', async (req, res) => {
 
     const results = []
     const favorites = await Favorite.findAll({
+      include: Publication,
       where: {
         userId,
         isBanned: false
@@ -28,7 +29,10 @@ router.get('/delete/:userId', async (req, res) => {
       results.push({
         id: r.id,
         publicationId: r.publicationId,
-        userId: r.userId
+        userId: r.userId,
+        title: r.publication.title,
+        image: r.publication.image,
+        description: r.publication.description
       })
     })
     res.status(200).json(results)
@@ -97,6 +101,7 @@ router.post('/', async (req, res) => {
 
     const results = []
     const favorites = await Favorite.findAll({
+      include: Publication,
       where: {
         userId,
         isBanned: false
@@ -107,7 +112,10 @@ router.post('/', async (req, res) => {
       results.push({
         id: r.id,
         publicationId: r.publicationId,
-        userId: r.userId
+        userId: r.userId,
+        title: r.publication.title,
+        image: r.publication.image,
+        description: r.publication.description
       })
     })
     res.status(200).json(results)
