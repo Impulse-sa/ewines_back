@@ -34,9 +34,9 @@ router.put('/:id', async (req, res) => {
       }
     )
     if (deliveryUpdated) {
-      return res.status(204).json('true')
+      return res.status(200).json(true)
     }
-    res.status(404).json('false')
+    res.status(404).json(false)
   } catch (error) {
     res.status(400).json(error.message)
   }
