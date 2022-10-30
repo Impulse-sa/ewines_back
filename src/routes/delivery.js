@@ -33,6 +33,7 @@ router.put('/:id', async (req, res) => {
         }
       }
     )
+    console.log(deliveryUpdated)
     if (deliveryUpdated) {
       return res.status(204).json(true)
     }
