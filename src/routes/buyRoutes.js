@@ -21,15 +21,6 @@ router.get('/:id', async (req, res) => {
     res.status(400).json(error.message)
   }
 })
-router.get('/user/:id', async (req, res) => {
-  const { id } = req.params
-  try {
-    const BuyById = await getBuysByUser(id)
-    res.status(200).json(BuyById)
-  } catch (error) {
-    res.status(400).json(error)
-  }
-})
 
 router.get('/user/sales/:id', async (req, res) => {
   const { id } = req.params
@@ -76,6 +67,16 @@ router.get('/user/sales/:id', async (req, res) => {
     }, 500)
   } catch (error) {
     res.status(400).json(error.message)
+  }
+})
+
+router.get('/user/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const BuyById = await getBuysByUser(id)
+    res.status(200).json(BuyById)
+  } catch (error) {
+    res.status(400).json(error)
   }
 })
 

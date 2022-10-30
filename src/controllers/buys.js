@@ -42,18 +42,19 @@ const getBuyById = async (id) => {
 const getBuysByUser = async (userId) => {
   const resultParsed = []
   try {
-    const dbResult = await Buy.findAll({
-      include:
+    const dbResult = await Buy.findAll(
+      {
+        where: {
+          userId
+        },
+        include:
       [{
         model: Delivery
       }, {
         model: User
       }]
-    }, {
-      where: {
-        userId
       }
-    })
+    )
     dbResult?.forEach(b => {
       resultParsed.push({
         buyId: b.dataValues.id,
