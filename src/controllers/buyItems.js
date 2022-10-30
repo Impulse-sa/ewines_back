@@ -1,4 +1,4 @@
-const { BuyItem } = require('../db')
+const { BuyItem, Publication } = require('../db')
 
 const getAllBuyItems = async () => {
   const resultParsed = []
@@ -25,6 +25,7 @@ const getAllBuyItemsOfBuy = async (buyId) => {
   const resultParsed = []
   try {
     const dbResult = await BuyItem.findAll({
+      include: Publication,
       where: {
         buyId
       }
