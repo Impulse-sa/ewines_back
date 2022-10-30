@@ -34,46 +34,9 @@ router.put('/:id', async (req, res) => {
       }
     )
     if (deliveryUpdated) {
-      const buysId = []
-      const buyItems = await BuyItem.findAll({
-        include: {
-          model: Publication,
-          where: {
-            userId: id
-          }
-        }
-      })
-
-      buyItems.forEach(item => {
-        buysId.push(item.dataValues.buyId)
-      })
-
-      const resultParsed = []
-      buyItems.forEach(async (item) => {
-        const b = await Buy.findByPk(item.dataValues.buyId, {
-          include:
-          [{
-            model: Delivery
-          }, {
-            model: User
-          }]
-        })
-        resultParsed.push({
-          buyId: b.dataValues.id,
-          currency: b.dataValues.currency,
-          paymentMethod: b.dataValues.paymentMethod,
-          totalAmount: b.dataValues.totalAmount,
-          userId: b.dataValues.userId,
-          createdAt: b.dataValues.createdAt,
-          username: b.dataValues.user.username,
-          status: b.dataValues.delivery.status,
-          deliveryId: b.dataValues.delivery.id
-        })
-      })
-      setTimeout(() => {
-        res.status(200).json(resultParsed)
-      }, 500)
+      return res.status(204).json(true)
     }
+    res.status(404).json(false)
   } catch (error) {
     res.status(400).json(error.message)
   }
