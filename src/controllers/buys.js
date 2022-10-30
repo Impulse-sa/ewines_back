@@ -62,7 +62,7 @@ const getBuysByUser = async (userId) => {
         totalAmount: b.dataValues.totalAmount,
         userId: b.dataValues.userId,
         createdAt: b.dataValues.createdAt,
-        status: b.delivery.dataValues.status
+        status: b.dataValues.delivery.status
       })
     })
     return resultParsed
