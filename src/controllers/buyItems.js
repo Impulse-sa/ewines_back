@@ -41,7 +41,7 @@ const getAllBuyItemsOfBuy = async (buyId) => {
     })
     console.log('resultados parseados', resultParsed)
 
-    return resultParsed
+    return dbResult
   } catch (error) {
     return new Error(error.message)
   }
