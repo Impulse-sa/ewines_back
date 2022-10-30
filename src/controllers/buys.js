@@ -49,6 +49,10 @@ const getBuysByUser = async (userId) => {
       }, {
         model: User
       }]
+    }, {
+      where: {
+        userId
+      }
     })
     dbResult?.forEach(b => {
       resultParsed.push({

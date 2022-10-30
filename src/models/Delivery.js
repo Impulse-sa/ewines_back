@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
     status: {
       type: DataTypes.STRING,
       defaultValue: 'PENDIENTE',
-      allowNull: false
+      allowNull: true
     }
   })
 }

@@ -1,8 +1,7 @@
 const { Router } = require('express')
 const { getAllBuy, getBuyById, getBuysByUser, getBuysByPublication } = require('../controllers/buys.js')
 const router = Router()
-const { Buy, BuyItem, Publication, User } = require('../db')
-const Delivery = require('../models/Delivery.js')
+const { Buy, BuyItem, Publication, User, Delivery } = require('../db')
 
 router.get('/', async (req, res) => {
   try {
