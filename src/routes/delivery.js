@@ -72,8 +72,8 @@ router.put('/:id', async (req, res) => {
         })
       })
       setTimeout(() => {
-        res.status(200).json(resultParsed)
       }, 500)
+      res.status(200).json(resultParsed)
     }
   } catch (error) {
     res.status(400).json(error.message)
