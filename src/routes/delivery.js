@@ -56,9 +56,7 @@ router.put('/:id', async (req, res) => {
             model: Delivery
           }, {
             model: User
-          }],
-          order: ['createdAt', 'DESC']
-
+          }]
         })
         resultParsed.push({
           buyId: b.dataValues.id,
