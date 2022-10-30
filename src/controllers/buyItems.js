@@ -39,7 +39,16 @@ const getAllBuyItemsOfBuy = async (buyId) => {
         buyItemId: b.dataValues.id,
         countProducts: b.dataValues.countProduct,
         publicationId: b.dataValues.publicationId,
-        buyId: b.dataValues.buyId
+        buyId: b.dataValues.buyId,
+        title: b.dataValues.publication.title,
+        price: b.dataValues.publication.price,
+        image: b.dataValues.publication.image,
+        description: b.dataValues.publication.description,
+        name: b.dataValues.publication.product.name,
+        type: b.dataValues.publication.product.type,
+        varietal: b.dataValues.publication.product.varietal,
+        img: b.dataValues.publication.product.img,
+        bodega: b.dataValues.publication.product.bodega
       })
     })
     console.log('resultados parseados', resultParsed)
