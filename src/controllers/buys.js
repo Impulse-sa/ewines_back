@@ -1,4 +1,4 @@
-const { Buy, BuyItem, Publication } = require('../db')
+const { Buy, BuyItem, Publication, User, Delivery } = require('../db')
 
 const getAllBuy = async () => {
   const resultParsed = []
@@ -43,9 +43,12 @@ const getBuysByUser = async (userId) => {
   const resultParsed = []
   try {
     const dbResult = await Buy.findAll({
-      where: {
-        userId
-      }
+      include:
+      [{
+        model: Delivery
+      }, {
+        model: User
+      }]
     })
     dbResult?.forEach(b => {
       resultParsed.push({
@@ -54,7 +57,8 @@ const getBuysByUser = async (userId) => {
         paymentMethod: b.dataValues.paymentMethod,
         totalAmount: b.dataValues.totalAmount,
         userId: b.dataValues.userId,
-        createdAt: b.dataValues.createdAt
+        createdAt: b.dataValues.createdAt,
+        status: b.dataValues.status
       })
     })
     return resultParsed
