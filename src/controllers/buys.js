@@ -47,7 +47,6 @@ const getBuysByUser = async (userId) => {
         where: {
           userId
         },
-        order: ['createdAt', 'DESC'],
         include:
       [{
         model: Delivery
