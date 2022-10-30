@@ -52,7 +52,8 @@ const getBuysByUser = async (userId) => {
         model: Delivery
       }, {
         model: User
-      }]
+      }],
+        order: ['createdAt', 'DESC']
       }
     )
     dbResult?.forEach(b => {
