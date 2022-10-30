@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const router = Router()
 
-const { Delivery, BuyItem, Publication, User, Buy } = require('../db')
+const { Delivery } = require('../db')
 
 router.post('/', async (req, res) => {
   const { status, buyId } = req.body
