@@ -67,7 +67,8 @@ router.get('/user/sales/:id', async (req, res) => {
         userId: b.dataValues.userId,
         createdAt: b.dataValues.createdAt,
         username: b.dataValues.user.username,
-        status: b.dataValues.delivery.status
+        status: b.dataValues.delivery.status,
+        deliveryId: b.dataValues.delivery.id
       })
     })
     setTimeout(() => {
