@@ -121,6 +121,16 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+router.get('/', async (req, res) => {
+  try {
+    const conversation = await Conversation.findAll()
+
+    res.status(200).json(conversation)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
+})
+
 router.delete('/:id', async (req, res) => {
   const { id } = req.params
 
