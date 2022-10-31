@@ -16,6 +16,7 @@ const { PagarProducto } = require('./webhooksMPRoutes')
 const conversationsRoutes = require('./conversations')
 const messagesRoutes = require('./messages')
 const deliveryRoutes = require('./delivery')
+const varietalRoutes = require('./varietalRoutes')
 const router = Router()
 
 // LOAD EACH ROUTES IN A ROUTE
@@ -37,5 +38,6 @@ router.use('/buys', buyRoutes)
 router.use('/conversations', conversationsRoutes)
 router.use('/messages', messagesRoutes)
 router.use('/delivery', deliveryRoutes)
+router.use('/varietals', varietalRoutes)
 
 module.exports = router
