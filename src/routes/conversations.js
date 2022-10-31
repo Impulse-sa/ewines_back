@@ -28,7 +28,7 @@ router.get('/find/:firstUserId/:secondUserId', async (req, res) => {
       include: User
     })
     console.log('conversations', conversations)
-    if (!conversations) {
+    if (!conversations.length) {
       const newConversation = await Conversation.create()
       if (newConversation) {
         await newConversation.addUser(firstUserId)
