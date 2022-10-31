@@ -27,7 +27,7 @@ router.get('/find/:firstUserId/:secondUserId', async (req, res) => {
     const conversations = await Conversation.findAll({
       include: User
     })
-
+    console.log('conversations', conversations)
     if (!conversations) {
       const newConversation = await Conversation.create()
       if (newConversation) {
