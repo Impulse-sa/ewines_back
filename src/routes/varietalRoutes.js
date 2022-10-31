@@ -1,6 +1,25 @@
 const { Router } = require('express')
 const { getAllVarietals, createVarietal, updateVarietal } = require('../controllers/varietals')
+const { Varietal } = require('../db')
 const router = Router()
+
+router.get('/:name', async (req, res) => {
+  try {
+    const { name } = req.params
+
+    const varietal = await Varietal.findOne({
+      where: {
+        name
+      }
+    })
+
+    if (varietal) return res.status(200).json(true)
+
+    res.status(200).json(false)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
+})
 
 router.get('/', async (req, res) => {
   try {
