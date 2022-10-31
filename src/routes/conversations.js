@@ -28,6 +28,19 @@ router.get('/find/:firstUserId/:secondUserId', async (req, res) => {
       include: User
     })
 
+    if (!conversations) {
+      const newConversation = await Conversation.create()
+      if (newConversation) {
+        await newConversation.addUser(firstUserId)
+        await newConversation.addUser(secondUserId)
+      }
+      const conversation = await Conversation.findByPk(newConversation.id, {
+        include: User
+      })
+
+      return res.status(200).json(conversation)
+    }
+
     conversations.forEach(conversation => {
       console.log(conversation.users[1].id)
       results.push({
@@ -39,7 +52,7 @@ router.get('/find/:firstUserId/:secondUserId', async (req, res) => {
     let exist = false
     let conversationId = ''
 
-    results.forEach(result => {
+    results?.forEach(result => {
       console.log(result)
       if (result.users.includes(firstUserId) && result.users.includes(secondUserId)) {
         exist = true
