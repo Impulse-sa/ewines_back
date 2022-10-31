@@ -355,7 +355,7 @@ router.put('/:id/image-upload', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   const { id } = req.params
-  const { banned, sommelier, verified } = req.query
+  const { banned, sommelier, verified, admin } = req.query
 
   try {
     if (verified) {
@@ -368,6 +368,10 @@ router.put('/:id', async (req, res) => {
     }
     if (sommelier) {
       const result = await userController.setSommelier(id, sommelier)
+      return res.status(200).json(result)
+    }
+    if (admin) {
+      const result = await userController.setAdmin(id, admin)
       return res.status(200).json(result)
     }
 

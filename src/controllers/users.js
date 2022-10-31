@@ -172,6 +172,28 @@ const setSommelier = async (id, sommelier) => {
   }
 }
 
+const setAdmin = async (id, admin) => {
+  try {
+    const userUpdated = await User.update(
+      {
+        isAdmin: admin
+      },
+      {
+        where: {
+          id
+        }
+      }
+    )
+
+    if (userUpdated) {
+      const userById = await getUserById(id)
+      return userById
+    }
+  } catch (error) {
+    throw new Error('Error actualizando usuario!')
+  }
+}
+
 const setImage = async (id, url) => {
   try {
     const userUpdated = await User.update(
@@ -270,5 +292,6 @@ module.exports = {
   setImage,
   setVerified,
   deleteUserById,
-  setPassword
+  setPassword,
+  setAdmin
 }
