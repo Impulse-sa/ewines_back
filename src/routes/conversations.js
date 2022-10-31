@@ -123,7 +123,9 @@ router.get('/:id', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const conversation = await Conversation.findAll()
+    const conversation = await Conversation.findAll({
+      include: User
+    })
 
     res.status(200).json(conversation)
   } catch (error) {
