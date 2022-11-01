@@ -4,6 +4,20 @@ const router = Router()
 const { Review, Product, User } = require('../db')
 const { v4: uuidv4 } = require('uuid')
 
+router.get('/products', async (req, res) => {
+  try {
+    const allProducts = await Product.findAll({
+      include: [{
+        model: Review
+      }],
+      order: [['createdAt', 'DESC']]
+    })
+    res.status(200).json(allProducts)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
+})
+
 router.get('/:productId', async (req, res) => {
   const { productId } = req.params
 
