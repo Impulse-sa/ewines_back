@@ -45,7 +45,7 @@ router.get('/find/:firstUserId/:secondUserId', async (req, res) => {
       console.log('USERS', conversation.dataValues.users)
       results.push({
         conversationId: conversation.dataValues.id,
-        users: [conversation.dataValues.users[0].dataValues.id, conversation.dataValues.users[1].dataValues.id]
+        users: [conversation.dataValues.users[0].id, conversation.dataValues.users[1].id]
       })
     })
 
