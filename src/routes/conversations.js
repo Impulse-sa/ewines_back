@@ -49,11 +49,12 @@ router.get('/find/:firstUserId/:secondUserId', async (req, res) => {
       })
     })
 
+    console.log('RESULTS', results)
+
     let exist = false
     let conversationId = ''
 
     results?.forEach(result => {
-      console.log(result)
       if (result.users.includes(firstUserId) && result.users.includes(secondUserId)) {
         exist = true
         conversationId = result.conversationId
