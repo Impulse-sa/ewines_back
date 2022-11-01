@@ -42,13 +42,13 @@ router.get('/find/:firstUserId/:secondUserId', async (req, res) => {
     }
 
     conversations.forEach(conversation => {
-      console.log(conversation)
-      console.log(conversation.users[1].id)
       results.push({
         conversationId: conversation.dataValues.id,
         users: [conversation.dataValues.users[0].id, conversation.dataValues.users[1].id]
       })
     })
+
+    console.log(results)
 
     let exist = false
     let conversationId = ''
