@@ -8,7 +8,8 @@ router.get('/products', async (req, res) => {
   try {
     const allProducts = await Product.findAll({
       include: [{
-        model: Review
+        model: Review,
+        include: User
       }],
       order: [['createdAt', 'DESC']]
     })
