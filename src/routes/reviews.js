@@ -57,8 +57,6 @@ router.post('/', async (req, res) => {
   const { userId, productId, text } = req.body
 
   try {
-    const results = []
-
     await Review.create({
       id: uuidv4(),
       userId,
@@ -66,27 +64,14 @@ router.post('/', async (req, res) => {
       text
     })
 
-    const reviews = await Review.findAll({
+    const allProducts = await Product.findAll({
       include: [{
-        model: Product
-      }, {
-        model: User
+        model: Review,
+        include: User
       }],
-      where: {
-        productId
-      },
       order: [['createdAt', 'DESC']]
     })
-
-    reviews.forEach(r => {
-      results.push({
-        id: r.id,
-        text: r.text,
-        username: r.user.username
-      })
-    })
-
-    res.status(201).json(results)
+    res.status(200).json(allProducts)
   } catch (error) {
     res.status(400).json(error.message)
   }
