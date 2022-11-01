@@ -37,13 +37,12 @@ router.get('/:productId', async (req, res) => {
       order: [['createdAt', 'DESC']]
     })
 
-    if (!reviews.length) return res.status(200).json('El product no tiene reviews!')
+    if (!reviews.length) return res.status(200).json('El producto no tiene reviews!')
 
     reviews.forEach(r => {
       results.push({
         id: r.id,
         text: r.text,
-        answer: r.answer,
         username: r.user.username
       })
     })
