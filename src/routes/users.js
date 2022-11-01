@@ -99,7 +99,7 @@ router.get('/filter/:id', async (req, res) => {
       return res.status(200).json('No hay usuarios guardados en la Base de Datos!')
     }
 
-    usersFromDb = usersFromDb.filter(user => user.id !== id)
+    usersFromDb = usersFromDb.filter(user => user.id !== id && user.isSommelier === true)
 
     return res.status(200).json(usersFromDb)
   } catch (error) {
