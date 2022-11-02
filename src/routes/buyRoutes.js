@@ -42,7 +42,6 @@ router.get('/user/sales/:id', async (req, res) => {
 
     const resultParsed = []
     buyItems.forEach(async (item) => {
-      console.log('item', item)
       const b = await Buy.findByPk(item.dataValues.buyId, {
         include:
         [{
@@ -51,6 +50,7 @@ router.get('/user/sales/:id', async (req, res) => {
           model: User
         }]
       })
+      console.log('-----------------', b)
       resultParsed.push({
         buyId: b.dataValues.id,
         currency: b.dataValues.currency,
