@@ -62,13 +62,12 @@ router.get('/user/sales/:id', async (req, res) => {
         deliveryId: b.delivery.id
       })
     })
-    setTimeout(() => {
-      res.status(200).json(resultParsed.sort((a, b) => {
-        if (a.createdAt < b.createdAt) return 1
-        if (a.createdAt > b.createdAt) return -1
-        return 0
-      }))
-    }, 2000)
+
+    res.status(200).json(resultParsed.sort((a, b) => {
+      if (a.createdAt < b.createdAt) return 1
+      if (a.createdAt > b.createdAt) return -1
+      return 0
+    }))
   } catch (error) {
     res.status(400).json(error.message)
   }
