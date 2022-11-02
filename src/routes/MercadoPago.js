@@ -22,9 +22,9 @@ server.post('/', (req, res) => {
 
     items: req.body.map(item => { return { ...item, currency_id: 'ARS' } }),
     back_urls: {
-      success: 'http://localhost:3000/userPurchased/',
-      failure: 'http://localhost:3000',
-      pending: 'http://localhost:3000'
+      success: 'https://e-wine-ashen.vercel.app/userPurchased/',
+      failure: 'https://e-wine-ashen.vercel.app',
+      pending: 'https://e-wine-ashen.vercel.app'
     },
     notification_url: 'https://e-winespf.herokuapp.com/notificacion'
   }
