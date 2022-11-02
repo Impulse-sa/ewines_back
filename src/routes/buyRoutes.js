@@ -51,15 +51,15 @@ router.get('/user/sales/:id', async (req, res) => {
         }]
       })
       resultParsed.push({
-        buyId: b.id,
-        currency: b.currency,
-        paymentMethod: b.paymentMethod,
-        totalAmount: b.totalAmount,
-        userId: b.userId,
-        createdAt: b.createdAt,
-        username: b.user.username,
-        status: b.delivery.status,
-        deliveryId: b.delivery.id
+        buyId: b.dataValues.id,
+        currency: b.dataValues.currency,
+        paymentMethod: b.dataValues.paymentMethod,
+        totalAmount: b.dataValues.totalAmount,
+        userId: b.dataValues.userId,
+        createdAt: b.dataValues.createdAt,
+        username: b.dataValues.user.username,
+        status: b.dataValues.delivery.status,
+        deliveryId: b.dataValues.delivery.id
       })
     })
 
