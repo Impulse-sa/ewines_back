@@ -5,7 +5,7 @@ const { Review, Product, User } = require('../db')
 const { v4: uuidv4 } = require('uuid')
 
 router.get('/productsLanding', async (req, res) => {
-  /* const results = [] */
+  const results = []
   try {
     const allProducts = await Product.findAll({
       include: [{
@@ -15,7 +15,7 @@ router.get('/productsLanding', async (req, res) => {
       order: [['createdAt', 'DESC']]
     })
 
-    /* allProducts.forEach(p => {
+    allProducts.forEach(p => {
       results.push({
         id: p.id,
         name: p.name,
@@ -25,11 +25,11 @@ router.get('/productsLanding', async (req, res) => {
         origin: p.origin,
         text: p.reviews.text,
         img: p.img,
-        username: p.reviews.users.username
+        username: p.reviews.user.username
       })
-    }) */
+    })
 
-    res.status(200).json(allProducts)
+    res.status(200).json(results)
   } catch (error) {
     res.status(400).json(error.message)
   }
