@@ -171,6 +171,7 @@ const getOnePublication = async (id) => {
       price: pb.price,
       count: pb.count,
       image: pb.image,
+      isBanned: pb.isBanned,
       description: pb.description,
       productId: pb.product.id,
       name: pb.product.name,
