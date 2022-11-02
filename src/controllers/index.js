@@ -276,9 +276,6 @@ const getPublicationsByName = async (name) => {
         isBanned: false,
         title: {
           [Op.iLike]: `%${name}%`
-        },
-        description: {
-          [Op.iLike]: `%${name}%`
         }
       }
     })
