@@ -99,7 +99,7 @@ router.delete('/:id', async (req, res) => {
   try {
     const buyDeleted = await Buy.destroy({
       where: {
-        buyId: id
+        id
       }
     })
 
