@@ -52,8 +52,6 @@ router.get('/user/sales/:id', async (req, res) => {
           }]
         })
 
-        console.log(b)
-
         resultParsed.push({
           buyId: b.dataValues.id,
           currency: b.dataValues.currency,
@@ -68,11 +66,13 @@ router.get('/user/sales/:id', async (req, res) => {
       }
     })
 
-    res.status(200).json(resultParsed.sort((a, b) => {
-      if (a.createdAt < b.createdAt) return 1
-      if (a.createdAt > b.createdAt) return -1
-      return 0
-    }))
+    setTimeout(() => {
+      res.status(200).json(resultParsed.sort((a, b) => {
+        if (a.createdAt < b.createdAt) return 1
+        if (a.createdAt > b.createdAt) return -1
+        return 0
+      }))
+    }, 1000)
   } catch (error) {
     res.status(400).json(error.message)
   }
