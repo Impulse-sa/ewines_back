@@ -172,6 +172,7 @@ const getOnePublication = async (id) => {
       count: pb.count,
       image: pb.image,
       description: pb.description,
+      productId: pb.product.id,
       name: pb.product.name,
       type: pb.product.type,
       varietal: pb.product.varietal,
