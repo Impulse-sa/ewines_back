@@ -276,6 +276,9 @@ const getPublicationsByName = async (name) => {
         isBanned: false,
         title: {
           [Op.iLike]: `%${name}%`
+        },
+        description: {
+          [Op.iLike]: `%${name}%`
         }
       }
     })
@@ -348,7 +351,7 @@ const getPublicationsByName = async (name) => {
       })
     })
 
-    return results
+    return Array.from(new Set(results))
   } catch (error) {
     throw new Error('Error tratando de obtener publicaciones por nombre de producto!')
   }
