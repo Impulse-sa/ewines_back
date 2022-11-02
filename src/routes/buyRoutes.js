@@ -68,7 +68,7 @@ router.get('/user/sales/:id', async (req, res) => {
         if (a.createdAt > b.createdAt) return -1
         return 0
       }))
-    }, 1000)
+    }, 2000)
   } catch (error) {
     res.status(400).json(error.message)
   }
