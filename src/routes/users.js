@@ -9,12 +9,12 @@ const userController = require('../controllers/users')
 
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-/* const auth = require('../config/auth') */
+// const auth = require('../config/auth')
 
 const nodemailer = require('nodemailer')
-/* const fs = require('fs')
+const fs = require('fs')
 const { promisify } = require('util')
-const readFile = promisify(fs.readFile) */
+const readFile = promisify(fs.readFile)
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -313,7 +313,7 @@ router.post('/', async (req, res) => {
       password,
       region
     )
-    /*
+
     const mailOptions = {
       from: 'e.winemarketplace@gmail.com',
       to: email,
@@ -333,7 +333,7 @@ router.post('/', async (req, res) => {
       } else {
         console.log('Email sent: ' + info.response)
       }
-    }) */
+    })
 
     res.status(201).json(userCreated)
   } catch (error) {
