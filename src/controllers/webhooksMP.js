@@ -20,9 +20,9 @@ const createBuy = async (id) => {
   })
   result.additional_info.items.map(async (p) => {
     await createBuyItem(p.quantity, p.category_id, newBuy.id)
-    const publication = await Publication.findByPk(p.id)
+    const publication = await Publication.findByPk(p.category_id)
 
-    await Publication.update({ count: publication.count - p.quantity }, { where: { id: p.id } })
+    await Publication.update({ count: publication.count - p.quantity }, { where: { id: p.category_id } })
   }
   )
 
