@@ -352,7 +352,7 @@ const getPublicationsByName = async (name) => {
       }
     })
 
-    return Array.from(new Set(results))
+    return results
   } catch (error) {
     throw new Error('Error tratando de obtener publicaciones por nombre de producto!')
   }
