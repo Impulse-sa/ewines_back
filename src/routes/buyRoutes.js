@@ -39,9 +39,9 @@ router.get('/user/sales/:id', async (req, res) => {
     buyItems.forEach(item => {
       buysId.push(item.dataValues.buyId)
     })
-    console.log('----------', buysId)
+
     const resultParsed = []
-    buyItems.forEach(async (item) => {
+    buysId.forEach(async (item) => {
       if (item !== null) {
         const b = await Buy.findByPk(item, {
           include:
