@@ -1,4 +1,4 @@
-const { Buy, BuyItem, Delivery } = require('../db')
+const { Buy, BuyItem, Delivery, Publication } = require('../db')
 
 const fetch = require('node-fetch')
 
@@ -18,7 +18,14 @@ const createBuy = async (id) => {
     totalAmount: result.transaction_amount,
     userId: result.additional_info.items[0].id
   })
-  result.additional_info.items.map(async (p) => await createBuyItem(p.quantity, p.category_id, newBuy.id))
+  result.additional_info.items.map(async (p) => {
+    await createBuyItem(p.quantity, p.category_id, newBuy.id)
+    const publication = await Publication.findByPk(p.id)
+
+    await Publication.update({ count: publication.count - p.quantity }, { where: { id: p.id } })
+  }
+  )
+
   await Delivery.create({
     buyId: newBuy.id
   })
