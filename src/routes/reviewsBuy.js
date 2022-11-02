@@ -48,7 +48,33 @@ router.post('/', async (req, res) => {
       // revisar nivel usuario
       const lvlUp = await userBuylvlUp(userId)
       console.log(lvlUp)
-      return res.status(200).json(AddReview)
+
+      const results = []
+
+      const reviewsDetail = await ReviewBuy.findAll({
+        include: [{
+          model: Publication
+        }, {
+          model: User
+        }],
+        where: {
+          publicationId
+        },
+        order: [['createdAt', 'DESC']]
+      })
+
+      reviewsDetail.forEach(r => {
+        results.push({
+          id: r.id,
+          text: r.text,
+          stars: r.stars,
+          username: r.user.username,
+          createdAt: r.createdAt,
+          image: r.user.image
+        })
+      })
+
+      return res.status(200).json(results)
     } else return res.status(404).json('No se puede puntuar por que no hay compra registrada')
   } catch (error) {
     console.log(error)
