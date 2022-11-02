@@ -38,7 +38,7 @@ const getPublicationsDb = async () => {
       })
     })
 
-    return results
+    return results.filter(result => result.count > 0)
   } catch (error) {
     throw new Error('Error tratando de obtener todas las publicaciones!')
   }
