@@ -1,4 +1,4 @@
-const { Buy, BuyItem, Delivery } = require('../db')
+const { Buy, BuyItem, Delivery, Publication } = require('../db')
 const Stripe = require('stripe')
 // const BuyItem = require('../models/BuyItem')
 // const Publication = require('../models/Publication')
@@ -28,7 +28,13 @@ const createBuy = async ({ idStripe, totalAmount, carrito, userId }) => {
       userId
     })
     // console.log('Esta es la nueva compra', newBuy)
-    carrito?.map(async (p) => await createBuyItem(p.count, p.id, newBuy.id))
+    carrito?.map(async (p) => {
+      await createBuyItem(p.count, p.id, newBuy.id)
+
+      const publication = await Publication.findByPk(p.id)
+
+      await Publication.update({ count: publication.count - p.count }, { where: { id: p.id } })
+    })
 
     await Delivery.create({
       buyId: newBuy.id
