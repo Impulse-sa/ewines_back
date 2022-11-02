@@ -42,26 +42,30 @@ router.get('/user/sales/:id', async (req, res) => {
     console.log('----------', buysId)
     const resultParsed = []
     buyItems.forEach(async (item) => {
-      const b = await Buy.findByPk(item.dataValues.buyId, {
-        include:
-        [{
-          model: Delivery
-        }, {
-          model: User
-        }]
-      })
+      if (item !== null) {
+        const b = await Buy.findByPk(item, {
+          include:
+          [{
+            model: Delivery
+          }, {
+            model: User
+          }]
+        })
 
-      resultParsed.push({
-        buyId: b.dataValues.id,
-        currency: b.dataValues.currency,
-        paymentMethod: b.dataValues.paymentMethod,
-        totalAmount: b.dataValues.totalAmount,
-        userId: b.dataValues.userId,
-        createdAt: b.dataValues.createdAt,
-        username: b.dataValues.user.username,
-        status: b.dataValues.delivery.status,
-        deliveryId: b.dataValues.delivery.id
-      })
+        console.log(b)
+
+        resultParsed.push({
+          buyId: b.dataValues.id,
+          currency: b.dataValues.currency,
+          paymentMethod: b.dataValues.paymentMethod,
+          totalAmount: b.dataValues.totalAmount,
+          userId: b.dataValues.userId,
+          createdAt: b.dataValues.createdAt,
+          username: b.dataValues.user.username,
+          status: b.dataValues.delivery.status,
+          deliveryId: b.dataValues.delivery.id
+        })
+      }
     })
 
     res.status(200).json(resultParsed.sort((a, b) => {
