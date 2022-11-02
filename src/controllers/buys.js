@@ -67,12 +67,11 @@ const getBuysByUser = async (userId) => {
         deliveryId: b.dataValues.delivery.id
       })
     })
-    /* return resultParsed.sort((a, b) => {
+    return resultParsed.sort((a, b) => {
       if (a.createdAt < b.createdAt) return 1
       if (a.createdAt > b.createdAt) return -1
       return 0
-    }) */
-    return resultParsed
+    })
   } catch (error) {
     return new Error('Error al buscar todas las compras de un usuario')
   }

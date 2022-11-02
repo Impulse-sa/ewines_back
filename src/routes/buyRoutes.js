@@ -93,4 +93,20 @@ router.get('/publication/:id', async (req, res) => {
     res.status(400).json(error.message)
   }
 })
+
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const buyDeleted = await Buy.destroy({
+      where: {
+        buyId: id
+      }
+    })
+
+    res.status(200).json(buyDeleted)
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
+})
+
 module.exports = router
