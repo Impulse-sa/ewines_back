@@ -331,7 +331,7 @@ const getPublicationsByName = async (name) => {
     dbResults.concat(dbResultsType).concat(dbResultsOrigin).concat(dbResultsTitle).forEach(r => {
       const publication = results.find(result => r.id === result.id)
       console.log(publication)
-      if (!publication) {
+      if (typeof publication !== 'undefined') {
         results.push({
           id: r.id,
           title: r.title,
