@@ -266,6 +266,20 @@ const getPublicationsByName = async (name) => {
   const results = []
 
   try {
+    const dbResultsTitle = await Publication.findAll({
+      include: [{
+        model: Product
+      }, {
+        model: User
+      }],
+      where: {
+        isBanned: false,
+        title: {
+          [Op.iLike]: `%${name}%`
+        }
+      }
+    })
+
     const dbResults = await Publication.findAll({
       include: [{
         model: Product,
@@ -314,7 +328,7 @@ const getPublicationsByName = async (name) => {
       }
     })
 
-    dbResults.concat(dbResultsType).concat(dbResultsOrigin).forEach(r => {
+    dbResults.concat(dbResultsType).concat(dbResultsOrigin).concat(dbResultsTitle).forEach(r => {
       results.push({
         id: r.id,
         title: r.title,
