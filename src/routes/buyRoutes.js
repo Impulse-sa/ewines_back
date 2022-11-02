@@ -36,6 +36,8 @@ router.get('/user/sales/:id', async (req, res) => {
       }
     })
 
+    console.log('-----------', buyItems)
+
     buyItems.forEach(item => {
       buysId.push(item.dataValues.buyId)
     })
@@ -50,7 +52,7 @@ router.get('/user/sales/:id', async (req, res) => {
           model: User
         }]
       })
-      console.log('-----------------', b)
+
       resultParsed.push({
         buyId: b.dataValues.id,
         currency: b.dataValues.currency,
