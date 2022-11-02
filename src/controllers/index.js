@@ -329,23 +329,26 @@ const getPublicationsByName = async (name) => {
     })
 
     dbResults.concat(dbResultsType).concat(dbResultsOrigin).concat(dbResultsTitle).forEach(r => {
-      results.push({
-        id: r.id,
-        title: r.title,
-        price: r.price,
-        count: r.count,
-        image: r.image,
-        description: r.description,
-        name: r.product.name,
-        type: r.product.type,
-        varietal: r.product.varietal,
-        cellar: r.product.cellar,
-        img: r.product.img,
-        origin: r.product.origin,
-        userId: r.userId,
-        email: r.user.email,
-        username: r.user.username
-      })
+      const publication = results.find(result => r.id === result.id)
+      if (!publication) {
+        results.push({
+          id: r.id,
+          title: r.title,
+          price: r.price,
+          count: r.count,
+          image: r.image,
+          description: r.description,
+          name: r.product.name,
+          type: r.product.type,
+          varietal: r.product.varietal,
+          cellar: r.product.cellar,
+          img: r.product.img,
+          origin: r.product.origin,
+          userId: r.userId,
+          email: r.user.email,
+          username: r.user.username
+        })
+      }
     })
 
     return Array.from(new Set(results))
