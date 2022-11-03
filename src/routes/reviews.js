@@ -29,7 +29,7 @@ router.get('/productsLanding', async (req, res) => {
       })
     })
 
-    res.status(200).json(results)
+    res.status(200).json(allProducts)
   } catch (error) {
     res.status(400).json(error.message)
   }
