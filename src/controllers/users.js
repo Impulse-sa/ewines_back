@@ -19,7 +19,8 @@ const getUserById = async (id) => {
       isBanned: dbResult.isBanned,
       isAdmin: dbResult.isAdmin,
       isSommelier: dbResult.isSommelier,
-      balance: dbResult.balance
+      balance: dbResult.balance,
+      buyLevel: dbResult.buyLevel
     }
 
     return result
