@@ -24,9 +24,9 @@ router.get('/productsLanding', async (req, res) => {
           type: p.type,
           cellar: p.cellar,
           origin: p.origin,
-          text: p.reviews.text,
+          text: p.reviews[0].text,
           img: p.img,
-          username: p.reviews.user.username
+          username: p.reviews[0].user.username
         })
       }
     })
