@@ -25,7 +25,7 @@ router.get('/productsLanding', async (req, res) => {
         origin: p.origin,
         text: p.reviews.text,
         img: p.img,
-        username: p.reviews[0].user.username
+        username: p.reviews.user.username
       })
     })
 
