@@ -1,4 +1,4 @@
-const { User } = require('../db')
+const { User, Publication } = require('../db')
 // const { Op } = require('sequelize')
 
 const { v4: uuidv4 } = require('uuid')
@@ -141,6 +141,12 @@ const setBanned = async (id, banned) => {
         }
       }
     )
+
+    await Publication.update({ isBanned: banned }, {
+      where: {
+        userId: id
+      }
+    })
 
     if (userUpdated) {
       const userById = await getUserById(id)
