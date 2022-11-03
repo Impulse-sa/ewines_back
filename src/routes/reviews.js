@@ -15,19 +15,21 @@ router.get('/productsLanding', async (req, res) => {
       order: [['createdAt', 'DESC']]
     })
 
-    /*  allProducts.forEach(p => {
-      results.push({
-        id: p.id,
-        name: p.name,
-        varietal: p.varietal,
-        type: p.type,
-        cellar: p.cellar,
-        origin: p.origin,
-        text: p.reviews.text,
-        img: p.img,
-        username: p.reviews.user.username
-      })
-    }) */
+    allProducts.forEach(p => {
+      if (p.reviews.length) {
+        results.push({
+          id: p.id,
+          name: p.name,
+          varietal: p.varietal,
+          type: p.type,
+          cellar: p.cellar,
+          origin: p.origin,
+          text: p.reviews.text,
+          img: p.img,
+          username: p.reviews.user.username
+        })
+      }
+    })
 
     res.status(200).json(allProducts)
   } catch (error) {
