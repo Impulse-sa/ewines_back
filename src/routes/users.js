@@ -161,6 +161,7 @@ router.post('/login', async (req, res) => {
 
   try {
     const userEmail = await User.findOne({ where: { email } })
+    if (userEmail.isBanned) throw new Error('Usuario baneado!')
     if (!userEmail) throw new Error('Email no encontrado!')
 
     const passwordMatch = await bcrypt.compare(password, userEmail.password)
