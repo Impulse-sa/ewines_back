@@ -39,6 +39,7 @@ const getAllBuyItemsOfBuy = async (buyId) => {
         buyItemId: b.dataValues.id,
         countProducts: b.dataValues.countProduct,
         publicationId: b.dataValues.publicationId,
+        sellerId: b.dataValues.publication.userId,
         buyId: b.dataValues.buyId,
         title: b.dataValues.publication.title,
         price: b.dataValues.publication.price,
