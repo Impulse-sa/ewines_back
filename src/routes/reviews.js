@@ -15,7 +15,7 @@ router.get('/productsLanding', async (req, res) => {
       order: [['createdAt', 'DESC']]
     })
 
-    allProducts.forEach(p => {
+    /*  allProducts.forEach(p => {
       results.push({
         id: p.id,
         name: p.name,
@@ -27,7 +27,7 @@ router.get('/productsLanding', async (req, res) => {
         img: p.img,
         username: p.reviews.user.username
       })
-    })
+    }) */
 
     res.status(200).json(allProducts)
   } catch (error) {
