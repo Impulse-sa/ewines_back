@@ -23,7 +23,7 @@ router.get('/productsLanding', async (req, res) => {
         type: p.type,
         cellar: p.cellar,
         origin: p.origin,
-        text: p.reviews[0].text,
+        text: p.reviews.text,
         img: p.img,
         username: p.reviews[0].user.username
       })
